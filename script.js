@@ -6,3 +6,11 @@ $(document).ready(function() {
     $(this).addClass('active');
   });
 });
+document.querySelectorAll(".navbar-nav .nav-link").forEach(function (link) {
+    link.addEventListener("click", function () {
+        let navbarToggler = document.querySelector(".navbar-collapse");
+        if (navbarToggler.classList.contains("show")) {
+            new bootstrap.Collapse(navbarToggler).hide();
+        }
+    });
+});

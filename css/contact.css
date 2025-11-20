@@ -92,18 +92,15 @@ body {
       font-size: 1em;
       text-align: center;
     }
-    @media (max-width: 900px) {
-      .contact-container {
-        flex-direction: column;
-        min-height: unset;
-      }
-      .contact-image, .contact-form-area {
-        width: 100%;
-        min-height: 230px;
-        height: unset;
-      }
-      .contact-image img {
-        height: 220px;
-        border-radius: 0;
-      }
-    }
+    @media (max-width: 991px) {
+  .contact-container {
+    display: block !important;
+  }
+
+  .contact-form-area,
+  #thankyou,
+  .contact-image {
+    width: 100% !important;
+    display: block !important;
+  }
+}
