@@ -9,12 +9,24 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <!-- Font Awesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- AOS Animation Library -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css">
-  </head>
+</head>
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><h1>Vagr Residency</h1></a>
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="images/vagr_logo.png" alt="Vagr Residency Logo" class="logo me-2">
+      <h1 class="mb-0">Vagr Residency</h1>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,13 +36,13 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
+          <a class="nav-link" href="index.html#aboutus">About us</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="index.html#services">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About us</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link contact-link">Contact</a>
+          <a class="nav-link contact-link" href="contact.html" onclick="location.href='contact.html'">Contact</a>
         </li>
         <li class="nav-item">
           <button><a class="nav-link book">Booking</a></button>
@@ -39,6 +51,7 @@
     </div>
   </div>
 </nav>
+
 <div id="carouselExampleDark" class="carousel slide">
 
   <div class="carousel-indicators">
@@ -48,14 +61,14 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active" data-bs-interval="10000" style="position:relative;">
-  <img src="images/slider1.jpg" class="d-block w-100" alt="...">
-  <div class="carousel-overlay"></div>
-  <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center h-100">
-    <h1>Embrace Serenity with Stunning Hill Views</h1>
-    <p>Wake up to breathtaking vistas and the soothing sounds of nature. Discover peace and tranquility at Vagr Residency.</p>
-    <a href="#booking" class="btn btn-success btn-lg mt-3">Book Now</a>
-  </div>
-</div>
+      <img src="images/slider1.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center h-100">
+        <h1>Embrace Serenity with Stunning Hill Views</h1>
+        <p>Wake up to breathtaking vistas and the soothing sounds of nature. Discover peace and tranquility at Vagr Residency.</p>
+        <a href="#booking" class="btn btn-success btn-lg mt-3">Book Now</a>
+      </div>
+    </div>
     <div class="carousel-item" data-bs-interval="2000">
       <img src="images/slider2.jpg" class="d-block w-100" alt="...">
       <div class="carousel-overlay"></div>
@@ -83,6 +96,55 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+
+<section class="about-us-section py-5" id="aboutus">
+  <div class="container d-flex flex-wrap align-items-center justify-content-center gap-4 about-row">
+    <div class="about-content flex-grow-1" data-aos="fade-right">
+      <h2 class="mb-3">About <span class="text-brand">Vagr Residency</span></h2>
+      <p class="lead mb-2">
+        Nestled amidst scenic hills, Vagr Residency offers serene stays with modern comfort and warm hospitality.
+        Our spacious rooms, attentive service, and top-notch amenities make every guest feel at home—whether you’re here for business, relaxation, or celebration.
+      </p>
+      <p>
+        Experience tranquility, fresh surroundings, and memorable dining, all in the heart of nature.
+      </p>
+    </div>
+    <div class="about-photo ms-lg-4 mb-4 mb-lg-0" data-aos="fade-left">
+      <img src="images/Hotel.png" alt="Our Hotel" class="img-fluid rounded shadow" style="max-width:340px; min-width:220px;">
+    </div>
+  </div>
+</section>
+
+
+<section class="services-section py-5 bg-light" id="services">
+  <div class="container text-center">
+    <h2 class="mb-4">Our Services</h2>
+    <div class="row justify-content-center g-4">
+      <div class="col-6 col-md-3">
+        <div class="service-icon mb-2"><i class="fas fa-wifi fa-2x text-primary"></i></div>
+        <h5>Free WiFi</h5>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="service-icon mb-2"><i class="fas fa-dumbbell fa-2x text-success"></i></div>
+        <h5>Modern Gym</h5>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="service-icon mb-2"><i class="fas fa-swimmer fa-2x text-info"></i></div>
+        <h5>Swimming Pool</h5>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="service-icon mb-2"><i class="fas fa-utensils fa-2x text-warning"></i></div>
+        <h5>Fine Dining</h5>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  AOS.init({
+    once: true,
+    duration: 1100
+  });
+</script>
 <script src="script.js"></script>
 </body>
 </html>
