@@ -12,7 +12,9 @@ body {
   width: 100%; /* Full width */
   z-index: 99999; /* Ensure navbar is visble and clcbale when scroll down so that carousel button does not overlap it*/
 }
-
+.navbar-toggler-icon {
+    filter: brightness(0) invert(1); /* makes hamburger icon pure white */
+}
  .logo {
     height: 40px; /* Adjust as needed for your design */
     width: auto;
