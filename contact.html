@@ -37,7 +37,7 @@
           <li class="nav-item"><a class="nav-link" href="index.html#aboutus">About us</a></li>
           <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
           <li class="nav-item"><a class="nav-link active contact-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><button><a class="nav-link book">Booking</a></button></li>
+          <li class="nav-item"><button><a class="nav-link book" href="book.html">Booking</a></button></li>
         </ul>
       </div>
     </div>
@@ -60,20 +60,10 @@
       <div id="thankyou"></div>
     </div>
   </div>
-  <script>
-    document.getElementById("contact-form").addEventListener("submit", function(e){
-      e.preventDefault();
-      const form = this;
-      fetch("https://script.google.com/macros/s/AKfycbxNBRU-TGVye9Xb1tgkyICtmGPIjVDwUrN6WIBzbGDv9EE-1mEfi1lzPx3ceqsSagrrjw/exec", {
-        method: "POST",
-        body: new FormData(form)
-      })
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("thankyou").textContent = "Thank you! We will call you back soon.";
-        form.reset();
-      });
-    });
-  </script>
+  
+
+
+
+
 </body>
 </html>

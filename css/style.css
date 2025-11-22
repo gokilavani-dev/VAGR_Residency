@@ -1,5 +1,7 @@
 /* ---------------- NAVBAR ---------------- */
 body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f8f9fb;
   padding-top: 75px;  /* try 90px, adjust more if needed */
 }
 .navbar {
