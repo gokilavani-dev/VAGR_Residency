@@ -51,13 +51,12 @@ form select {
 }
 
 /* Messages */
-#bookingResult,
-#cancelMessage {
+#bookingResult{
   margin-top: 10px;
   font-weight: 600;
   min-height: 20px;
+  color:green;
 }
-
 /* Cancel */
 .cancel-box {
   margin-top: 10px;
@@ -73,6 +72,13 @@ form select {
 .cancel-area {
   display: none;
   margin-top: 8px;
+}
+/* Messages */
+#cancelMessage {
+  margin-top: 10px;
+  font-weight: 600;
+  min-height: 20px;
+  color:red;
 }
 
 /* Image */

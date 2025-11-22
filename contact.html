@@ -61,41 +61,25 @@
       <div id="thankyou"></div>
     </div>
   </div>
-
-  <script>
+<script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKVMAXg5H8cy7y3sQ4TPli84EM-CxPaaeX8UkwGyG9Ox-dXYpA9KUlNl4rDcblzteCtQ/exec";
 
-document.getElementById("callbackForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const form = e.target;
+document.getElementById("callbackForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const form = this;
 
-    const payload = {
-        formType: "callback",
-        name: form.name.value,
-        phone: form.phone.value,
-        email: form.email.value,
-        message: form.message.value
-    };
-
-    try {
-        const res = await fetch(WEB_APP_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) throw new Error("Network response was not OK");
-
-        const data = await res.json();
-        document.getElementById("thankyou").innerText = data.message;
-        form.reset();
-
-    } catch (err) {
-        document.getElementById("thankyou").innerText = "Network error. Try again.";
-        console.error(err);
-    }
+  const fd = new FormData(form);
+  fd.append("formType", "contact");
+  fetch(WEB_APP_URL, { method: "POST", body: fd })
+    .then(r => r.text())
+    .then(data => {
+      document.getElementById("thankyou").textContent = "Thank you! We will call you back soon.";
+      form.reset();
+    })
+    .catch(() => {
+      document.getElementById("thankyou").textContent = "Network error. Try again.";
+    });
 });
 </script>
-
 </body>
 </html>
