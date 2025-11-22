@@ -30,7 +30,7 @@ body {
       background: #fff;
       padding: 36px 24px;
     }
-    #contact-form {
+    #callbackForm {
       display: flex;
       flex-direction: column;
       min-width: 320px;
@@ -43,21 +43,21 @@ body {
       padding: 28px 20px;
       margin: 0 auto;
     }
-    #contact-form h2 {
+    #callbackForm h2 {
       text-align: center;
       color: #ff7f00;
       margin-bottom: 15px;
       font-weight: 700;
     }
-    #contact-form label {
+    #callbackForm label {
       display: flex;
       flex-direction: column;
       font-weight: 600;
       color: #333;
       margin-bottom: 6px;
     }
-    #contact-form input,
-    #contact-form textarea {
+    #callbackForm input,
+    #callbackForm textarea {
       margin-top: 5px;
       padding: 10px;
       border-radius: 7px;
@@ -66,11 +66,11 @@ body {
       background: #f8f9ff;
       resize: none;
     }
-    #contact-form textarea {
+    #callbackForm textarea {
       min-height: 70px;
       max-height: 150px;
     }
-    #contact-form button {
+    #callbackForm button {
       background: #ff7f00;
       color: #fff;
       padding: 12px 0;
@@ -82,7 +82,7 @@ body {
       box-shadow: 0 0 9px #ff7f0037;
       transition: 0.16s background;
     }
-    #contact-form button:hover {
+    #callbackForm button:hover {
       background: #ff9900;
       color: #000;
     }

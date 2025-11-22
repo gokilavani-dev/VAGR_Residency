@@ -49,7 +49,7 @@
       <img src="images/callback.png" alt="Contact">
     </div>
     <div class="contact-form-area">
-      <form id="contact-form">
+      <form id="callbackForm">
         <h2>Request a Call Back</h2>
         <label>Name:<input name="name" required></label>
         <label>Phone:<input name="phone" required></label>
@@ -60,7 +60,43 @@
       <div id="thankyou"></div>
     </div>
   </div>
-  
+ <script> 
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxYBZM2mE1OtdkcteeuZinMzz4OkgVKoSeCYszVKubwIyo7-YcsL3g4fZaMRDBOBcaWPA/exec";
+
+document.getElementById("callbackForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const payload = {
+        formType: "callback",
+        name: form.name.value,
+        phone: form.phone.value,
+        email: form.email.value,
+        message: form.message.value
+    };
+
+    try {
+        const res = await fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const text = await res.text();      // 🟢 FIX
+        const data = JSON.parse(text);      // 🟢 FIX
+
+        document.getElementById("thankyou").innerText = data.message;
+        form.reset();
+
+    } catch (err) {
+        document.getElementById("thankyou").innerText = "Network error. Try again.";
+    }
+});
+</script>
+
+
+
+
 
 
 
