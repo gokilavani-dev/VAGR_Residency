@@ -63,32 +63,39 @@
   </div>
 
   <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKVMAXg5H8cy7y3sQ4TPli84EM-CxPaaeX8UkwGyG9Ox-dXYpA9KUlNl4rDcblzteCtQ/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKVMAXg5H8cy7y3sQ4TPli84EM-CxPaaeX8UkwGyG9Ox-dXYpA9KUlNl4rDcblzteCtQ/exec";
 
-    document.getElementById("callbackForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const payload = {
+document.getElementById("callbackForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const payload = {
         formType: "callback",
         name: form.name.value,
         phone: form.phone.value,
         email: form.email.value,
         message: form.message.value
-      };
+    };
 
-      try {
+    try {
         const res = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
         });
+
+        if (!res.ok) throw new Error("Network response was not OK");
+
         const data = await res.json();
         document.getElementById("thankyou").innerText = data.message;
         form.reset();
-      } catch {
+
+    } catch (err) {
         document.getElementById("thankyou").innerText = "Network error. Try again.";
-      }
-    });
-  </script>
+        console.error(err);
+    }
+});
+</script>
+
 </body>
 </html>

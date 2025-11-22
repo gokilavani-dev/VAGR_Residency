@@ -111,32 +111,49 @@
   <script>
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKVMAXg5H8cy7y3sQ4TPli84EM-CxPaaeX8UkwGyG9Ox-dXYpA9KUlNl4rDcblzteCtQ/exec";
 
-    document.getElementById("toggleCancel").addEventListener("click", () => {
-      const c = document.getElementById("cancelArea");
-      c.style.display = c.style.display === "block" ? "none" : "block";
-    });
+// Toggle cancel area
+document.getElementById("toggleCancel").addEventListener("click", () => {
+    const c = document.getElementById("cancelArea");
+    c.style.display = c.style.display === "block" ? "none" : "block";
+});
 
-    async function postData(payload, outputElementId) {
-      try {
+// -------------------------
+// 1) CHECK AVAILABILITY
+// -------------------------
+document.getElementById("checkBtn").addEventListener("click", async () => {
+    const payload = {
+        formType: "check",
+        checkin: document.getElementById("checkin").value,
+        checkout: document.getElementById("checkout").value
+    };
+
+    try {
         const res = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
         });
+
+        if (!res.ok) throw new Error("Network response was not OK");
+
         const data = await res.json();
-        document.getElementById(outputElementId).innerText = data.message || data.available;
-      } catch {
-        document.getElementById(outputElementId).innerText = "Network error";
-      }
+
+        document.getElementById("bookingResult").innerText =
+            data.available > 0
+                ? `${data.available} rooms available`
+                : "No rooms available";
+
+    } catch (e) {
+        document.getElementById("bookingResult").innerText = "Network error";
+        console.error(e);
     }
+});
 
-    document.getElementById("checkBtn").addEventListener("click", () => {
-      const payload = { formType: "check", checkin: document.getElementById("checkin").value, checkout: document.getElementById("checkout").value };
-      postData(payload, "bookingResult");
-    });
-
-    document.getElementById("bookBtn").addEventListener("click", () => {
-      const payload = {
+// -------------------------
+// 2) BOOK NOW
+// -------------------------
+document.getElementById("bookBtn").addEventListener("click", async () => {
+    const payload = {
         formType: "book",
         name: document.getElementById("name").value,
         phone: document.getElementById("phone").value,
@@ -145,14 +162,53 @@
         children: document.getElementById("children").value,
         checkin: document.getElementById("checkin").value,
         checkout: document.getElementById("checkout").value
-      };
-      postData(payload, "bookingResult");
-    });
+    };
 
-    document.getElementById("cancelBtn").addEventListener("click", () => {
-      const payload = { formType: "cancel", phone: document.getElementById("cancelPhone").value, checkin: document.getElementById("cancelCheckin").value };
-      postData(payload, "cancelMessage");
-    });
+    try {
+        const res = await fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error("Network response was not OK");
+
+        const data = await res.json();
+        document.getElementById("bookingResult").innerText = data.message;
+
+    } catch (e) {
+        document.getElementById("bookingResult").innerText = "Network error";
+        console.error(e);
+    }
+});
+
+// -------------------------
+// 3) CANCEL BOOKING
+// -------------------------
+document.getElementById("cancelBtn").addEventListener("click", async () => {
+    const payload = {
+        formType: "cancel",
+        phone: document.getElementById("cancelPhone").value,
+        checkin: document.getElementById("cancelCheckin").value
+    };
+
+    try {
+        const res = await fetch(WEB_APP_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error("Network response was not OK");
+
+        const data = await res.json();
+        document.getElementById("cancelMessage").innerText = data.message;
+
+    } catch (e) {
+        document.getElementById("cancelMessage").innerText = "Network error";
+        console.error(e);
+    }
+});
 
     AOS.init({ once: true, duration: 1100 });
   </script>
