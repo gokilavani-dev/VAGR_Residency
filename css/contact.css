@@ -70,6 +70,9 @@ body {
       min-height: 70px;
       max-height: 150px;
     }
+    #phone {
+    width: 100%;
+    }
     #callbackForm button {
       background: #ff7f00;
       color: #fff;
@@ -92,6 +95,9 @@ body {
       font-size: 1em;
       text-align: center;
     }
+    #phone {
+    width: 100%;
+}
     @media (max-width: 991px) {
   .contact-container {
     display: block !important;

@@ -16,7 +16,10 @@
   <!-- AOS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
+  
+  <!-- intl-tel-input CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
+  
   <!-- External CSS -->
   <link rel="stylesheet" href="css/style.css"/>
   <link rel="stylesheet" href="css/book.css"/>
@@ -54,8 +57,9 @@
           <input id="name" type="text" placeholder="Your full name">
         </div>
         <div class="form-group">
-          <label>Phone</label>
-          <input id="phone" type="tel" placeholder="Enter phone">
+          <label>Phone:</label>
+        <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required>
+      
         </div>
         <div class="form-group">
           <label>Rooms</label>
@@ -89,12 +93,13 @@
         </div>
         <button type="button" id="checkBtn" class="btn-main">Check Availability</button>
         <button type="button" id="bookBtn" class="btn-main mt-2">Book Now</button>
-        <div id="bookingResult"></div>
+        <div id="bookingResult" ></div>
 
         <div class="cancel-box">
           <button type="button" id="toggleCancel" class="cancel-toggle">Cancel a Booking</button>
           <div id="cancelArea" class="cancel-area">
             <input id="cancelPhone" type="text" placeholder="Phone used for booking" />
+            <label>Check-in</label>
             <input id="cancelCheckin" type="date" />
             <button id="cancelBtn" type="button" class="btn-cancel">Submit Cancel</button>
             <div id="cancelMessage"></div>
@@ -108,31 +113,67 @@
     </div>
   </div>
 
-  <script>
+  <!-- intl-tel-input JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
+
+<script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKVMAXg5H8cy7y3sQ4TPli84EM-CxPaaeX8UkwGyG9Ox-dXYpA9KUlNl4rDcblzteCtQ/exec";
 
-document.getElementById("bookBtn").addEventListener("click", function() {
-  const formData = new FormData();
-  formData.append("formType", "booking");
-  formData.append("name", document.getElementById("name").value);
-  formData.append("phone", document.getElementById("phone").value);
-  formData.append("rooms", document.getElementById("rooms").value);
-  formData.append("adults", document.getElementById("adults").value);
-  formData.append("children", document.getElementById("children").value);
-  formData.append("checkin", document.getElementById("checkin").value);
-  formData.append("checkout", document.getElementById("checkout").value);
+// Initialize phone input with flags and dial codes
+const phoneInput = document.querySelector("#phone");
+const iti = window.intlTelInput(phoneInput, {
+    initialCountry: "in",
+    separateDialCode: true,
+    preferredCountries: ["in","us","gb"],
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
+});
 
-  fetch(WEB_APP_URL, { method: "POST", body: formData })
+// Initialize cancel phone input
+const cancelPhoneInput = document.querySelector("#cancelPhone");
+const itiCancel = window.intlTelInput(cancelPhoneInput, {
+    initialCountry: "in",
+    separateDialCode: true,
+    preferredCountries: ["in","us","gb"],
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
+});
+
+// Booking form submit
+document.getElementById("bookBtn").addEventListener("click", function() {
+    const formData = new FormData();
+    formData.append("formType", "booking");
+    formData.append("name", document.getElementById("name").value);
+
+    // Preserve + for Sheets
+    const dialCode = iti.getSelectedCountryData().dialCode;
+    const nationalNumber = phoneInput.value.replace(/\D/g,'');
+    formData.append("phone", `'+${dialCode} ${nationalNumber}`);
+
+    formData.append("rooms", document.getElementById("rooms").value);
+    formData.append("adults", document.getElementById("adults").value);
+    formData.append("children", document.getElementById("children").value);
+    formData.append("checkin", document.getElementById("checkin").value);
+    formData.append("checkout", document.getElementById("checkout").value);
+
+    fetch(WEB_APP_URL, { method: "POST", body: formData })
     .then(r => r.text())
     .then(data => {
-      document.getElementById("bookingResult").textContent = data;
-      // Optional: reset fields
-      document.getElementById("bookingForm").reset();
+        document.getElementById("bookingResult").textContent = data;
+        document.getElementById("bookingForm").reset();
+        iti.setCountry("in");
     })
     .catch(() => document.getElementById("bookingResult").textContent = "Network error. Try again.");
 });
 
-    AOS.init({ once: true, duration: 1100 });
+// Toggle cancel area
+document.getElementById("toggleCancel").addEventListener("click", () => {
+    const area = document.getElementById("cancelArea");
+    area.style.display = area.style.display === "none" ? "block" : "none";
+});
+
+
+AOS.init({ once: true, duration: 1100 });
+</script>
   </script>
 </body>
 </html>

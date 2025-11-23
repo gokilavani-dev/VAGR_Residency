@@ -19,7 +19,10 @@
   color: #ff7f00;
   margin-bottom: 16px;
 }
-
+#phone {
+    width: 100%;
+    display: flex;
+    }
 /* Inputs */
 form input,
 form select {
@@ -94,7 +97,10 @@ form select {
   object-fit: cover;
   min-height: 360px;
 }
-
+.iti{
+  display: block;
+  margin-bottom: 14px;
+}
 /* Mobile */
 @media (max-width: 991px) {
   .booking-container {

@@ -1,83 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vagr Residency</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vagr Residency</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- AOS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<!-- AOS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
-  <!-- External CSS -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/contact.css">
+<!-- intl-tel-input CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
+
+<!-- External CSS -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/contact.css">
+
+
 </head>
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="images/vagr_logo.png" alt="Vagr Residency Logo" class="logo me-2">
-        <h1 class="mb-0">Vagr Residency</h1>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#aboutus">About us</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
-          <li class="nav-item"><button><a class="nav-link book" href="book.html">Booking</a></button></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- CONTACT FORM -->
-  <div class="contact-container">
-    <div class="contact-image">
-      <img src="images/callback.png" alt="Contact">
-    </div>
-    <div class="contact-form-area">
-      <form id="callbackForm">
-        <h2>Request a Call Back</h2>
-        <label>Name:<input name="name" required></label>
-        <label>Phone:<input name="phone" required></label>
-        <label>Email:<input name="email"></label>
-        <label>Message:<textarea name="message" required></textarea></label>
-        <button type="submit">Call Back!</button>
-      </form>
-      <div id="thankyou"></div>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="images/vagr_logo.png" alt="Vagr Residency Logo" class="logo me-2">
+      <h1 class="mb-0">Vagr Residency</h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#aboutus">About us</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        <li class="nav-item"><button><a class="nav-link book" href="book.html">Booking</a></button></li>
+      </ul>
     </div>
   </div>
+</nav>
+
+<!-- CONTACT FORM -->
+<div class="contact-container">
+  <div class="contact-image">
+    <img src="images/callback.png" alt="Contact">
+  </div>
+  <div class="contact-form-area">
+    <form id="callbackForm">
+      <h2>Request a Call Back</h2>
+
+      <label>Name:<input name="name" required></label>
+
+      <label>Phone:
+        <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required>
+      </label>
+
+      <label>Email:<input name="email"></label>
+      <label>Message:<textarea name="message" required></textarea></label>
+      <button type="submit">Call Back!</button>
+    </form>
+    <div id="thankyou"></div>
+  </div>
+</div>
+
+<!-- intl-tel-input JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
+
 <script>
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKVMAXg5H8cy7y3sQ4TPli84EM-CxPaaeX8UkwGyG9Ox-dXYpA9KUlNl4rDcblzteCtQ/exec";
 
-document.getElementById("callbackForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const form = this;
+// Initialize phone input with flags and dial codes
+const phoneInput = document.querySelector("#phone");
+const iti = window.intlTelInput(phoneInput, {
+    initialCountry: "in",           // Default country India
+    separateDialCode: true,         // Show country code separately
+    preferredCountries: ["in","us","gb"],
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
+});
 
-  const fd = new FormData(form);
-  fd.append("formType", "contact");
-  fetch(WEB_APP_URL, { method: "POST", body: fd })
+// Form submit: send full international number
+document.getElementById("callbackForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const form = this;
+    const fd = new FormData(form);
+
+    const dialCode = iti.getSelectedCountryData().dialCode; // e.g., 91
+    const nationalNumber = phoneInput.value.replace(/\D/g,''); // remove any non-numeric
+    const formattedNumber = `'+${dialCode} ${nationalNumber}`; // prepend ' to preserve + in Sheets
+
+    fd.set("phone", formattedNumber);
+    fd.append("formType", "contact");
+
+    fetch(WEB_APP_URL, { method: "POST", body: fd })
     .then(r => r.text())
     .then(data => {
-      document.getElementById("thankyou").textContent = "Thank you! We will call you back soon.";
-      form.reset();
+        document.getElementById("thankyou").textContent = "Thank you! We will call you back soon.";
+        form.reset();
+        iti.setCountry("in"); // reset country code
     })
     .catch(() => {
-      document.getElementById("thankyou").textContent = "Network error. Try again.";
+        document.getElementById("thankyou").textContent = "Network error. Try again.";
     });
 });
 </script>
