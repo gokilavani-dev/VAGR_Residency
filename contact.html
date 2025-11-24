@@ -55,20 +55,20 @@
     <img src="images/callback.png" alt="Contact">
   </div>
   <div class="contact-form-area">
-    <form id="callbackForm">
-      <h2>Request a Call Back</h2>
+<form id="callbackForm">
+  <h2>Request a Call Back</h2>
 
-      <label>Name:<input name="name" required></label>
+  <label>Name:<input id="contactName" name="name" required></label>
 
-      <label>Phone:
-        <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required>
-      </label>
+  <label>Phone:
+    <input id="contactPhone" name="phone" type="tel" placeholder="Enter phone number" required>
+  </label>
 
-      <label>Email:<input name="email"></label>
-      <label>Message:<textarea name="message" required></textarea></label>
-      <button type="submit">Call Back!</button>
-    </form>
-    <div id="thankyou"></div>
+  <label>Email:<input id="contactEmail" name="email"></label>
+  <label>Message:<textarea id="contactMessage" name="message" required></textarea></label>
+  <button type="button" id="contactBtn">Call Back!</button>
+</form>
+<div id="thankyou"></div>
   </div>
 </div>
 
@@ -76,11 +76,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
 
-<script>
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwKVMAXg5H8cy7y3sQ4TPli84EM-CxPaaeX8UkwGyG9Ox-dXYpA9KUlNl4rDcblzteCtQ/exec";
+<!-- Add this at the bottom of your contact.html, before </body> -->
 
-// Initialize phone input with flags and dial codes
-const phoneInput = document.querySelector("#phone");
+<!-- Firebase Modular SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+  // --- Firebase Config ---
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-6dIVCrbi2PoQXr5JDQwG6mnDTMIqYGo",
+    authDomain: "vagr-residency.firebaseapp.com",
+    projectId: "vagr-residency",
+    storageBucket: "vagr-residency.firebasestorage.app",
+    messagingSenderId: "906241851144",
+    appId: "1:906241851144:web:1322d674bd92f62aab36bd"
+  };
+
+  // --- Initialize Firebase ---
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  
+  // Initialize phone input with flags and dial codes
+const phoneInput = document.querySelector("#contactPhone");
 const iti = window.intlTelInput(phoneInput, {
     initialCountry: "in",           // Default country India
     separateDialCode: true,         // Show country code separately
@@ -88,30 +106,44 @@ const iti = window.intlTelInput(phoneInput, {
     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
 });
 
-// Form submit: send full international number
-document.getElementById("callbackForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    const form = this;
-    const fd = new FormData(form);
+  // --- Contact Form Submission ---
+  document.querySelector("#contactBtn").addEventListener("click", async () => {
+    const name = document.querySelector("#contactName").value.trim();
+    const email = document.querySelector("#contactEmail").value.trim();
+    const message = document.querySelector("#contactMessage").value.trim();
 
-    const dialCode = iti.getSelectedCountryData().dialCode; // e.g., 91
-    const nationalNumber = phoneInput.value.replace(/\D/g,''); // remove any non-numeric
-    const formattedNumber = `'+${dialCode} ${nationalNumber}`; // prepend ' to preserve + in Sheets
+    // Format phone number
+    const dial = iti.getSelectedCountryData().dialCode;
+    const national = phoneInput.value.replace(/\D/g, "");
+    const phone = `+${dial}${national}`;
 
-    fd.set("phone", formattedNumber);
-    fd.append("formType", "contact");
+    // Validate required fields
+    if (!name || !phone || !message) {
+      document.querySelector("#thankyou").innerHTML = `<span style="color:red">Please fill all required fields.</span>`;
+      return;
+    }
 
-    fetch(WEB_APP_URL, { method: "POST", body: fd })
-    .then(r => r.text())
-    .then(data => {
-        document.getElementById("thankyou").textContent = "Thank you! We will call you back soon.";
-        form.reset();
-        iti.setCountry("in"); // reset country code
-    })
-    .catch(() => {
-        document.getElementById("thankyou").textContent = "Network error. Try again.";
-    });
-});
+    try {
+      // Add document to Firestore
+      await addDoc(collection(db, "contacts"), {
+        name,
+        phone,
+        email,
+        message,
+        createdAt: new Date().toISOString()
+      });
+
+      // Show success
+      document.querySelector("#thankyou").innerHTML = `<span style="color:green">Message sent successfully!</span>`;
+      document.querySelector("#callbackForm").reset();
+
+      // Reset phone input to default country
+      try { iti.setCountry("in"); } catch(e){/*ignore*/}
+    } catch (err) {
+      console.error("Error saving contact:", err);
+      document.querySelector("#thankyou").innerHTML = `<span style="color:red">Failed to send message. Try again.</span>`;
+    }
+  });
 </script>
 </body>
 </html>
