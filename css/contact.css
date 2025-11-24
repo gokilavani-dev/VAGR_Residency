@@ -109,4 +109,11 @@ body {
     width: 100% !important;
     display: block !important;
   }
+  contact-image {
+        height: auto;
+    }
+    .contact-image img {
+        max-height: 200px;
+        border-radius: 0;
+    }
 }

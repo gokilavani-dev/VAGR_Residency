@@ -21,31 +21,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
   
   <!-- External CSS -->
-  <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/book.css"/>
+    
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/book.css"/>
+
+  
+  
+   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+   
 </head>
 <body>
   <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="images/vagr_logo.png" alt="Vagr Residency Logo" class="logo me-2">
-        <h1 class="mb-0">Vagr Residency</h1>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#aboutus">About us</a></li>
-          <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><button><a class="nav-link book" href="book.html">Booking</a></button></li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="images/vagr_logo.png" alt="Vagr Residency Logo" class="logo me-2">
+      <h1 class="mb-0">Vagr Residency</h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#aboutus">About us</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link book active" href="book.html">Booking</a></li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <!-- BOOKING FORM -->
   <div class="booking-container">
@@ -70,6 +77,26 @@
             <option value="4">4 Rooms</option>
             <option value="5">5 Rooms</option>
           </select>
+        </div>
+        <div class="form-group">
+          <label>Room Category</label>
+          <select id="roomCategory">
+            <option value="large">Large(Double-Cot)</option>
+            <option value="small">Small(Single-Cot)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>AC / Non-AC</label>
+          <select id="roomType">
+            <option value="ac">AC Room</option>
+            <option value="nonac">Non-AC Room</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Total Price</label>
+          <input id="totalPrice" type="text" disabled>
         </div>
         <div class="row">
           <div class="col">
@@ -114,51 +141,49 @@
   </div>
 
   <!-- intl-tel-input JS -->
-<script src="js/script.js"></script>
+<script src="js/book.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
-<script>
-// Initialize phone input with flags and dial codes
-const phoneInput = document.querySelector("#phone");
-const iti = window.intlTelInput(phoneInput, {
-    initialCountry: "in",
-    separateDialCode: true,
-    preferredCountries: ["in","us","gb"],
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
-});
 
-// Initialize cancel phone input
-const cancelPhoneInput = document.querySelector("#cancelPhone");
-const itiCancel = window.intlTelInput(cancelPhoneInput, {
-    initialCountry: "in",
-    separateDialCode: true,
-    preferredCountries: ["in","us","gb"],
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
-});
-// Toggle cancel area
-document.getElementById("toggleCancel").addEventListener("click", () => {
-    const area = document.getElementById("cancelArea");
-    area.style.display = area.style.display === "none" ? "block" : "none";
-});
-AOS.init({ once: true, duration: 1100 });
-</script>
 
 <script type="module">
-  // Firebase modular imports
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
   import {
-    getFirestore,
-    collection,
-    addDoc,
-    getDocs,
-    query,
-    where,
-    deleteDoc,
-    doc,
-    onSnapshot
+    getFirestore, collection, addDoc, getDocs, query, where, deleteDoc, doc,
+    orderBy, limit, runTransaction
   } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-  // Firebase config — keep yours
+document.addEventListener("DOMContentLoaded", () => {
+  // ---------------- PRICE CHART ----------------
+  const priceChart = {
+    large:   { ac: 2300, nonac: 2000 },
+    small:   { ac: 1800, nonac: 1500 }
+  };
+
+  const roomsEl = document.querySelector("#rooms");
+  const categoryEl = document.querySelector("#roomCategory");
+  const typeEl = document.querySelector("#roomType");
+  const totalPriceEl = document.querySelector("#totalPrice");
+
+  function updatePrice() {
+    const rooms = parseInt(roomsEl.value) || 1;
+    const category = categoryEl.value;
+    const type = typeEl.value;
+
+    const basePrice = priceChart[category][type];
+    const total = rooms * basePrice;
+
+    totalPriceEl.value = "₹" + total;
+  }
+
+  // Listeners
+  [roomsEl, categoryEl, typeEl].forEach(el => el.addEventListener("change", updatePrice));
+
+  // Initialize
+  updatePrice();
+
+  // ---------------- FIREBASE ----------------
+  
   const firebaseConfig = {
     apiKey: "AIzaSyAHGBdgyg21jfj_2uHHuPIIo2GE1oPf1DU",
     authDomain: "vagr-residency.firebaseapp.com",
@@ -168,141 +193,224 @@ AOS.init({ once: true, duration: 1100 });
     appId: "1:906241851144:web:1322d674bd92f62aab36bd"
   };
 
-  // Init
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // ---------------- BOOKING ID GENERATOR ----------------
+  async function generateBookingId() {
+    const bookingsRef = collection(db, "booking");
 
-  // ---------- CHECK AVAILABILITY ----------
-  document.querySelector("#checkBtn").addEventListener("click", async () => {
-    const roomsWanted = parseInt(document.querySelector("#rooms").value) || 1;
-    const checkin = document.querySelector("#checkin").value;
-
-    if (!checkin) {
-      document.querySelector("#bookingResult").innerHTML = "Select check-in date!";
-      return;
-    }
-
-    const q = query(collection(db, "booking"), where("checkin", "==", checkin));
-    const snap = await getDocs(q);
-
-    let totalBooked = 0;
-    snap.forEach(d => {
-      const r = Number(d.data().rooms || 0);
-      totalBooked += r;
+    const newNumber = await runTransaction(db, async (transaction) => {
+      const q = query(bookingsRef, orderBy("number", "desc"), limit(1));
+      const snap = await getDocs(q);
+      const lastNumber = snap.empty ? 0 : snap.docs[0].data().number || 0;
+      return lastNumber + 1;
     });
 
-    const totalRooms = 5;
-    const available = Math.max(0, totalRooms - totalBooked);
+    const padded = String(newNumber).padStart(4, "0");
+    const year = new Date().getFullYear();
+    return { bookingId: `VAGR-${year}-${padded}`, number: newNumber };
+  }
 
-    document.querySelector("#bookingResult").innerHTML =
-      available >= roomsWanted
-        ? `<span style="color:green">Rooms Available! (${available} left)</span>`
-        : `<span style="color:red">Fully Booked on this date! (${available} left)</span>`;
+  // ---------------- PHONE INPUT ----------------
+  const phoneInput = document.querySelector("#phone");
+  const cancelPhoneInput = document.querySelector("#cancelPhone");
+
+  const iti = window.intlTelInput(phoneInput, {
+    initialCountry: "in",
+    separateDialCode: true,
+    preferredCountries: ["in","us","gb"],
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
   });
 
-  // ---------- BOOK NOW ----------
+  const itiCancel = window.intlTelInput(cancelPhoneInput, {
+    initialCountry: "in",
+    separateDialCode: true,
+    preferredCountries: ["in","us","gb"],
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
+  });
+
+  // ---------------- BOOK NOW ----------------
   document.querySelector("#bookBtn").addEventListener("click", async () => {
     const name = document.querySelector("#name").value.trim();
-    const rooms = parseInt(document.querySelector("#rooms").value) || 1;
+    const rooms = parseInt(roomsEl.value) || 1;
     const adults = parseInt(document.querySelector("#adults").value) || 1;
     const children = parseInt(document.querySelector("#children").value) || 0;
     const checkin = document.querySelector("#checkin").value;
     const checkout = document.querySelector("#checkout").value;
+    const roomCategory = categoryEl.value;
+    const roomType = typeEl.value;
 
-    // Format phone using the intl-tel-input instance `iti`
-const dial = iti.getSelectedCountryData().dialCode;
-const national = phoneInput.value.replace(/\D/g, ""); 
-const phone = `+${dial} ${national}`;
+    // Format phone
+    const dial = iti.getSelectedCountryData().dialCode;
+    const national = phoneInput.value.replace(/\D/g, "");
+    const phone = `+${dial} ${national}`;
+
     if (!name || !phone || !checkin || !checkout) {
-      document.querySelector("#bookingResult").innerHTML = `<span style="color:red">Please fill all required fields.</span>`;
+      document.querySelector("#bookingResult").innerHTML =
+        `<span style="color:red">Please fill all required fields.</span>`;
       return;
     }
 
-    // Check availability
-    const q = query(collection(db, "booking"), where("checkin", "==", checkin));
-    const snap = await getDocs(q);
+    // --- SIMPLE AVAILABILITY CHECK FOR BOTH ROOM TYPES & DISABLE OPTIONS --- //
+const totalLarge = 5;
+const totalSmall = 6;
 
-    let totalBooked = 0;
-    snap.forEach(d => totalBooked += Number(d.data().rooms || 0));
-    const available = 5 - totalBooked;
+// Fetch bookings for these dates
+const q = query(
+  collection(db, "booking"),
+  where("checkin", "<", checkout),
+  where("checkout", ">", checkin)
+);
+const snap = await getDocs(q);
 
-    if (available < rooms) {
-      document.querySelector("#bookingResult").innerHTML = `<span style="color:red">Booking Full! Only ${Math.max(0, available)} left.</span>`;
-      return;
-    }
+// Count booked rooms
+let bookedLarge = 0;
+let bookedSmall = 0;
 
-    // Save booking
-    await addDoc(collection(db, "booking"), {
-      name,
-      phone,
-      rooms,
-      adults,
-      children,
-      checkin,
-      checkout,
-      status: "Booked",
-      createdAt: new Date().toISOString()
-    });
+snap.forEach(d => {
+  const data = d.data();
+  if (data.roomCategory === "large") bookedLarge += Number(data.rooms || 0);
+  if (data.roomCategory === "small") bookedSmall += Number(data.rooms || 0);
+});
 
-    document.querySelector("#bookingResult").innerHTML = `<span style="color:green">Booking Successful!</span>`;
-    document.getElementById("bookingForm").reset();
-    // reset intl-tel-inputs if needed
-    try { window.iti.setCountry("in"); } catch(e){/*ignore*/ }
-  });
+// Calculate availability
+const availableLarge = totalLarge - bookedLarge;
+const availableSmall = totalSmall - bookedSmall;
 
-  // ---------- CANCEL BOOKING ----------
- document.querySelector("#cancelBtn").addEventListener("click", async () => {
-  const cCheckin = document.querySelector("#cancelCheckin").value;
+// Build message
+let msg = "";
 
-  // Format phone using intl-tel-input
-  const cancelDial = itiCancel.getSelectedCountryData().dialCode;
-  const cancelNational = cancelPhoneInput.value.replace(/\D/g, "");
-  const formattedCancelPhone = `+${cancelDial} ${cancelNational}`;
+if (availableLarge > 0) {
+  msg += `Large Rooms Available: <b>${availableLarge}</b><br>`;
+} else {
+  msg += `<span style="color:red">Large Rooms Fully Booked</span><br>`;
+}
 
-  if (!formattedCancelPhone || !cCheckin) {
-    document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">Enter phone & check-in date.</span>`;
-    return;
+if (availableSmall > 0) {
+  msg += `Small Rooms Available: <b>${availableSmall}</b>`;
+} else {
+  msg += `<span style="color:red">Small Rooms Fully Booked</span>`;
+}
+
+// Show availability
+document.querySelector("#bookingResult").innerHTML = `<div>${msg}</div>`;
+
+// ---- DISABLE ROOM OPTIONS BASED ON AVAILABILITY ---- //
+const roomCategoryEl = document.getElementById("roomCategory");
+
+[...roomCategoryEl.options].forEach(opt => {
+  if (opt.value === "large") {
+    opt.disabled = availableLarge <= 0;
   }
-
-  try {
-    // Query matching booking
-    const q = query(
-      collection(db, "booking"),
-      where("phone", "==", formattedCancelPhone),
-      where("checkin", "==", cCheckin)
-    );
-
-    const snap = await getDocs(q);
-
-    if (snap.empty) {
-      document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">No booking found for this phone and date.</span>`;
-      return;
-    }
-
-    // Delete all matched bookings
-    const deletes = snap.docs.map(d => deleteDoc(doc(db, "booking", d.id)));
-    await Promise.all(deletes);
-
-    document.querySelector("#cancelMessage").innerHTML = `<span style="color:green">Booking cancelled successfully.</span>`;
-    document.querySelector("#cancelPhone").value = "";
-    document.querySelector("#cancelCheckin").value = "";
-  } catch (err) {
-    console.error(err);
-    document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">Error cancelling booking.</span>`;
+  if (opt.value === "small") {
+    opt.disabled = availableSmall <= 0;
   }
 });
 
+    const basePrice = priceChart[roomCategory][roomType];
+    const totalAmount = rooms * basePrice * 100;
 
-  // ---------- REALTIME LISTENER (optional, updates console; you can adapt to UI) ----------
-  // onSnapshot(collection(db, "booking"), (snapshot) => {
-  //   // snapshot.docChanges() can be used to detect adds/modified/deletes
-  //   console.log("Realtime booking updates:", snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
-  //   // Example: you could update a small dashboard badge:
-  //   // let count = snapshot.size;
-  //   // document.querySelector("#someBadge").innerText = count;
-  // });
+    const options = {
+      key: "YOUR_RAZORPAY_KEY_ID",
+      amount: totalAmount,
+      currency: "INR",
+      name: "Vagr Residency",
+      description: "Room Booking",
+      handler: async function (response) {
+        const { bookingId, number } = await generateBookingId();
+        await addDoc(collection(db, "booking"), {
+          bookingId, number, name, phone, rooms, adults, children,
+          checkin, checkout, roomCategory, roomType,
+          pricePerRoom: basePrice,
+          price: totalAmount/100,
+          paymentId: response.razorpay_payment_id,
+          status: "Booked",
+          createdAt: new Date().toISOString()
+        });
+
+        document.querySelector("#bookingResult").innerHTML =
+          `<span style="color:green">Booking Successful! Your Booking ID: <b>${bookingId}</b></span>`;
+
+        document.getElementById("bookingForm").reset();
+        updatePrice();
+      },
+      prefill: { name, contact: phone },
+      theme: { color: "#ff7f00" },
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+  });
+
+  // ---------------- CANCEL BOOKING ----------------
+  document.querySelector("#cancelBtn").addEventListener("click", async () => {
+    const cCheckin = document.querySelector("#cancelCheckin").value;
+    const dial = itiCancel.getSelectedCountryData().dialCode;
+    const national = cancelPhoneInput.value.replace(/\D/g, "");
+    const formattedPhone = `+${dial} ${national}`;
+
+    if (!formattedPhone || !cCheckin) {
+      document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">Enter phone & check-in date.</span>`;
+      return;
+    }
+
+    try {
+      const q = query(collection(db, "booking"),
+        where("phone", "==", formattedPhone),
+        where("checkin", "==", cCheckin)
+      );
+      const snap = await getDocs(q);
+
+      if (snap.empty) {
+        document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">No booking found for this phone and date.</span>`;
+        return;
+      }
+
+      const deletes = snap.docs.map(d => deleteDoc(doc(db, "booking", d.id)));
+      await Promise.all(deletes);
+
+      document.querySelector("#cancelMessage").innerHTML = `<span style="color:green">Booking cancelled successfully.</span>`;
+      cancelPhoneInput.value = "";
+      document.querySelector("#cancelCheckin").value = "";
+    } catch(err) {
+      console.error(err);
+      document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">Error cancelling booking.</span>`;
+    }
+  });
+});
+
+AOS.init({ once: true, duration: 1100 });
 </script>
-<script src="js/script.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const removeItiClass = () => {
+        if (document.body.classList.contains("iti-mobile")) {
+            document.body.classList.remove("iti-mobile");
+            return true;   // class was removed
+        }
+        return false;      // class not present
+    };
+
+    // Remove once on load
+    removeItiClass();
+
+    // Observe only once — then STOP
+    const observer = new MutationObserver(() => {
+        const removed = removeItiClass();
+        if (removed) {
+            observer.disconnect(); // ⭐ STOP observing — prevents infinite loop
+        }
+    });
+
+    observer.observe(document.body, {
+        attributes: true,
+        attributeFilter: ["class"]
+    });
+});
+</script>
+
+
 </body>
 </html>

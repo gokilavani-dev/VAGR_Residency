@@ -33,7 +33,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link" href="index.html">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="index.html#aboutus">About us</a>
@@ -45,7 +45,7 @@
           <a class="nav-link contact-link" href="contact.html" onclick="location.href='contact.html'">Contact</a>
         </li>
         <li class="nav-item">
-          <button><a class="nav-link book" href="book.html">Booking</a></button>
+          <a class="nav-link book" href="book.html">Booking</a>
         </li>
       </ul>
     </div>
@@ -116,35 +116,227 @@
 </section>
 
 
-<section class="services-section py-5 bg-light" id="services">
+<section class="premium-services py-5" id="services">
   <div class="container text-center">
-    <h2 class="mb-4">Our Services</h2>
+    <h2 class="section-title mb-5">Our Services</h2>
+
     <div class="row justify-content-center g-4">
+
+      <!-- Free WiFi -->
       <div class="col-6 col-md-3">
-        <div class="service-icon mb-2"><i class="fas fa-wifi fa-2x text-primary"></i></div>
-        <h5>Free WiFi</h5>
+        <div class="service-card" data-aos="zoom-in">
+          <div class="icon-circle">
+            <i class="fas fa-wifi"></i>
+          </div>
+          <h4>Free WiFi</h4>
+          <p>High-speed internet available throughout the residency.</p>
+        </div>
       </div>
+
+      <!-- Gym -->
       <div class="col-6 col-md-3">
-        <div class="service-icon mb-2"><i class="fas fa-dumbbell fa-2x text-success"></i></div>
-        <h5>Modern Gym</h5>
+        <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+          <div class="icon-circle">
+            <i class="fas fa-dumbbell"></i>
+          </div>
+          <h4>Modern Gym</h4>
+          <p>State-of-the-art fitness equipment for your workout.</p>
+        </div>
       </div>
+
+      <!-- Swimming Pool -->
       <div class="col-6 col-md-3">
-        <div class="service-icon mb-2"><i class="fas fa-swimmer fa-2x text-info"></i></div>
-        <h5>Swimming Pool</h5>
+        <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+          <div class="icon-circle">
+            <i class="fas fa-swimmer"></i>
+          </div>
+          <h4>Swimming Pool</h4>
+          <p>A refreshing pool for relaxation and fun.</p>
+        </div>
       </div>
+
+      <!-- Parking (Replaced Dining) -->
       <div class="col-6 col-md-3">
-        <div class="service-icon mb-2"><i class="fas fa-utensils fa-2x text-warning"></i></div>
-        <h5>Fine Dining</h5>
+        <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+          <div class="icon-circle">
+            <i class="fas fa-parking"></i>
+          </div>
+          <h4>Parking Facility</h4>
+          <p>Safe and spacious parking for your vehicle.</p>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
+
+<div class="nearby-wrapper">
+
+    <!-- LEFT TITLE -->
+    <div class="nearby-title-box">
+        <h2 class="nearby-title">Nearby<br>Places</h2>
+    </div>
+
+    <!-- RIGHT SLIDER -->
+    <div class="attract-slider">
+
+        <!-- Card 1 -->
+        <div class="attract-card">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipOYtIRW8CJ7LxR3t-HFxhEbM6zjUU4zjwS0SZq8=w1080-h608-p-k-no-v0">
+            <div class="attract-content">
+                <h3>Nilakottai Town</h3>
+                <small>7–8 km • 10 mins</small>
+                <p>A lively town with markets, temples and cultural charm.</p>
+            </div>
+        </div>
+
+        <!-- Keep your remaining cards exactly as they are -->
+        <!-- Card 2 -->
+        <div class="attract-card">
+            <img src="https://live.staticflickr.com/65535/51246851634_3e6fd6bd57_b.jpg">
+            <div class="attract-content">
+                <h3>Thadikombu Temples</h3>
+                <small>10–12 km • 12 mins</small>
+                <p>Beautiful village temples surrounded by greenery.</p>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="attract-card">
+            <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/201910/tamil_nadu_cyclone.jpeg">
+            <div class="attract-content">
+                <h3>Karumathur Farmlands</h3>
+                <small>5–10 km • 10 mins</small>
+                <p>Scenic countryside route filled with coconut trees.</p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="attract-card">
+            <img src="https://i.ytimg.com/vi/9nDa-PrdL5k/maxresdefault.jpg">
+            <div class="attract-content">
+                <h3>Vilampatti Lake</h3>
+                <small>6–7 km • 10 mins</small>
+                <p>Quiet lake with lush greenery.</p>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="attract-card">
+            <img src="https://static.toiimg.com/photo/77593852.cms">
+            <div class="attract-content">
+                <h3>Sirumalai Foothills</h3>
+                <small>12–13 km • 14 mins</small>
+                <p>Green, cool hill base with fresh air.</p>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="attract-card">
+            <img src="https://live.staticflickr.com/65535/48628116497_49f4f8b57c_b.jpg">
+            <div class="attract-content">
+                <h3>Mullai Periyar Canal</h3>
+                <small>4–10 km • 5–15 mins</small>
+                <p>A calm water canal lined with greenery.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer class="bg-dark text-light pt-5 pb-3 mt-5">
+  <div class="container">
+    <div class="row gy-4">
+      <!-- Brand / Short About -->
+      <div class="col-md-3">
+        <h5 class="mb-3">Vagr Residency</h5>
+        <p class="small mb-0">
+          A serene stay with modern comforts, nestled amidst scenic hills. 
+          Relax, unwind, and feel at home with us.
+        </p>
+      </div>
+
+      <!-- Quick Navigation Links -->
+      <div class="col-md-3">
+        <h5 class="mb-3">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="index.html" class="text-decoration-none text-light">Home</a></li>
+          <li><a href="index.html#aboutus" class="text-decoration-none text-light">About Us</a></li>
+          <li><a href="index.html#services" class="text-decoration-none text-light">Services</a></li>
+          <li><a href="book.html" class="text-decoration-none text-light">Booking</a></li>
+          <li><a href="contact.html" class="text-decoration-none text-light">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact & Address -->
+      <div class="col-md-3">
+        <h5 class="mb-3">Contact</h5>
+        <p class="mb-1">
+          <i class="fa-solid fa-location-dot me-2"></i>
+          Vagr Residency,<br>
+          6-1-81B, near petrol bunk, Pattiveeranpatti,<br>
+          Dindugal, Tamil Nadu, India
+        </p>
+        <p class="mb-1">
+          <i class="fa-solid fa-phone me-2"></i>
+          <a href="tel:+919342872180" class="text-decoration-none text-light">+91 93428 72180</a>
+        </p>
+        <p class="mb-1">
+          <i class="fa-solid fa-envelope me-2"></i>
+          <a href="mailto:vagrresidency@gmail.com" class="text-decoration-none text-light">
+            vagrresidency@gmail.com
+          </a>
+        </p>
+        <div class="mt-2">
+          <a href="#" class="text-light me-3"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="text-light me-3"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="text-light"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- Google Map -->
+      <div class="col-md-3">
+        <h5 class="mb-3">Location</h5>
+        <div class="ratio ratio-4x3">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d149422.47671759283!2d77.69461959159052!3d10.219111152037343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07510063094e23%3A0x8aee949098f07149!2sVAGR%20Residency%20(A%2FC)!5e0!3m2!1sen!2sin!4v1763973216161!5m2!1sen!2sin" 
+           style="border:0;" 
+           allowfullscreen="" 
+           loading="lazy" 
+           referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+    <hr class="border-secondary mt-4">
+
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="mb-0 small">
+        &copy; <span id="year"></span> Vagr Residency. All rights reserved.
+      </p>
+      <a href="#top" class="text-decoration-none text-light small mt-2 mt-md-0">
+        <i class="fa-solid fa-arrow-up me-1"></i> Back to Top
+      </a>
+    </div>
+  </div>
+</footer>
+
 <script>
   AOS.init({
     once: true,
     duration: 1100
   });
+
+  // Dynamic year in footer
+  document.addEventListener("DOMContentLoaded", function () {
+    var yearSpan = document.getElementById("year");
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+  });
 </script>
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 </body>
 </html>
+
+

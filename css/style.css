@@ -68,7 +68,12 @@ body {
   color: #000 !important;
   box-shadow: 0 0 15px #ff9900;
 }
-
+.book.active {
+  color: #fff;
+  background: #19bbca;
+  border-radius: 12px;
+  box-shadow: 0 0 8px #19bbca;
+}
 #navbarNav {
   justify-content: flex-end;
 }
@@ -259,6 +264,164 @@ body {
   margin: 0 auto 10px auto;
   box-shadow: 0 2px 10px #eee;
 }
+/* ---------------- PREMIUM SERVICE CARDS ---------------- */
+.premium-services {
+  background: linear-gradient(180deg, #ffffff, #f4f8ff);
+}
+
+.section-title {
+  color: #ff7f00 !important;
+  font-weight: 800;
+  font-size: 2.2rem;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.65);
+  padding: 30px 18px;
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: 0.3s ease-in-out;
+  text-align: center;
+  cursor: pointer;
+}
+.service-card {
+  height: 260px; /* uniform height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.service-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  border: 1px solid #ffae48;
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+  background: #d9f7fa;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px auto;
+  box-shadow: 0 4px 14px rgba(25, 187, 202, 0.35) !important;
+  transition: 0.3s ease;
+}
+
+.service-card:hover .icon-circle {
+  transform: scale(1.12);
+  background: #b8eef3 !important;
+  box-shadow: 0 6px 18px rgba(25, 187, 202, 0.45) !important;
+}
+
+.icon-circle i {
+  font-size: 36px;
+  color: #19bbca;
+}
+
+.service-card h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.service-card p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* === Nearby Places New Side Layout === */
+.nearby-wrapper {
+    display: flex;
+    align-items: center;      /* TITLE centered to slider height */
+    gap: 25px;
+    padding: 25px 30px;
+    background: linear-gradient(90deg,#fff 60%,#f5faff 100%);
+    border-radius: 16px;
+    box-shadow: 0 2px 14px #eee8;
+    margin-bottom: 28px;
+}
+
+/* Left Title Box */
+.nearby-title-box {
+    min-width: 180px;
+    text-align: left;
+}
+
+.nearby-title {
+    font-size: 38px;
+    font-weight: 900;
+    color: #ff7f00;
+    line-height: 1.1;
+   
+}
+
+/* Updated Slider Container */
+.attract-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px 10px;
+    width: 100%;
+}
+
+.attract-slider::-webkit-scrollbar {
+    height: 10px;
+}
+
+.attract-slider::-webkit-scrollbar-thumb {
+    background: #19bbca;
+    border-radius: 10px;
+}
+/* Attraction card */
+.attract-card {
+    min-width: 300px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    transition: transform .3s ease, box-shadow .3s ease;
+    cursor: pointer;
+}
+
+.attract-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Images */
+.attract-card img {
+    width: 100%;
+    height: 180px;
+    border-radius: 18px 18px 0 0;
+    object-fit: cover;
+}
+
+/* Content box */
+.attract-content {
+    padding: 15px;
+}
+
+.attract-content h3 {
+    margin: 0 0 5px;
+    color: #34495e;
+}
+
+.attract-content small {
+    display: block;
+    margin-bottom: 10px;
+    color: #ff7f00;
+    font-weight: bold;
+}
+
+.attract-content p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
 @media (max-width: 991px) {
     .navbar-nav .nav-link {
         color: white;  /* when opened */
@@ -279,9 +442,30 @@ body {
         padding: 8px 15px;
     }
 
-    .navbar-toggler {
-        position: absolute;
-        right: 20px;          /* force hamburger to stay right */
-        top: 12px;
-    }
+    
+ 
+  .navbar-toggler {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+/* Disable intl-tel-input mobile fullscreen mode completely */
+body.iti-mobile {
+    position: static !important;
+    overflow: visible !important;
+    padding-top: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Prevent the mobile dropdown from becoming fullscreen */
+body.iti-mobile .iti--container {
+    position: absolute !important;
+    top: 60px !important;
+    left: 0 !important;
+    width: 300px !important;
+    z-index: 2000 !important;
 }
