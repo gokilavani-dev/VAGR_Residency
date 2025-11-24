@@ -21,9 +21,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
   
   <!-- External CSS -->
-    
     <link rel="stylesheet" href="css/style.css"/>
+    
     <link rel="stylesheet" href="css/book.css"/>
+    
 
   
   
@@ -56,89 +57,103 @@
 
   <!-- BOOKING FORM -->
   <div class="booking-container">
+
+    <!-- LEFT SIDE (FORM) -->
     <div class="booking-card" data-aos="fade-right">
-      <h2>Book Your Stay</h2>
-      <form id="bookingForm">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input id="name" type="text" placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label>Phone:</label>
-        <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required>
-      
-        </div>
-        <div class="form-group">
-          <label>Rooms</label>
-          <select id="rooms">
-            <option value="1">1 Room</option>
-            <option value="2">2 Rooms</option>
-            <option value="3">3 Rooms</option>
-            <option value="4">4 Rooms</option>
-            <option value="5">5 Rooms</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Room Category</label>
-          <select id="roomCategory">
-            <option value="large">Large(Double-Cot)</option>
-            <option value="small">Small(Single-Cot)</option>
-          </select>
-        </div>
+        <div class="booking-box">
+            <h2>Book Your Stay</h2>
+            <form id="bookingForm">
+                
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input id="name" type="text" placeholder="Your full name">
+                </div>
 
-        <div class="form-group">
-          <label>AC / Non-AC</label>
-          <select id="roomType">
-            <option value="ac">AC Room</option>
-            <option value="nonac">Non-AC Room</option>
-          </select>
-        </div>
+                <div class="form-group">
+                    <label>Phone:</label>
+                    <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required>
+                </div>
 
-        <div class="form-group">
-          <label>Total Price</label>
-          <input id="totalPrice" type="text" disabled>
-        </div>
-        <div class="row">
-          <div class="col">
-            <label>Adults</label>
-            <input id="adults" type="number" min="1" value="1">
-          </div>
-          <div class="col">
-            <label>Children</label>
-            <input id="children" type="number" min="0" value="0">
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col">
-            <label>Check-in</label>
-            <input id="checkin" type="date">
-          </div>
-          <div class="col">
-            <label>Check-out</label>
-            <input id="checkout" type="date">
-          </div>
-        </div>
-        <button type="button" id="checkBtn" class="btn-main">Check Availability</button>
-        <button type="button" id="bookBtn" class="btn-main mt-2">Book Now</button>
-        <div id="bookingResult" ></div>
+                <div class="form-group">
+                    <label>Rooms</label>
+                    <select id="rooms">
+                        <option value="1">1 Room</option>
+                        <option value="2">2 Rooms</option>
+                        <option value="3">3 Rooms</option>
+                        <option value="4">4 Rooms</option>
+                        <option value="5">5 Rooms</option>
+                    </select>
+                </div>
 
-        <div class="cancel-box">
-          <button type="button" id="toggleCancel" class="cancel-toggle">Cancel a Booking</button>
-          <div id="cancelArea" class="cancel-area">
-            <input id="cancelPhone" type="text" placeholder="Phone used for booking" />
-            <label>Check-in</label>
-            <input id="cancelCheckin" type="date" />
-            <button id="cancelBtn" type="button" class="btn-cancel">Submit Cancel</button>
-            <div id="cancelMessage"></div>
-          </div>
+                <div class="form-group">
+                    <label>Room Category</label>
+                    <select id="roomCategory">
+                        <option value="large">Large(Double-Cot)</option>
+                        <option value="small">Small(Single-Cot)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>AC / Non-AC</label>
+                    <select id="roomType">
+                        <option value="ac">AC Room</option>
+                        <option value="nonac">Non-AC Room</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Total Price</label>
+                    <input id="totalPrice" type="text" disabled>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>Adults</label>
+                        <input id="adults" type="number" min="1" value="1">
+                    </div>
+                    <div class="col">
+                        <label>Children</label>
+                        <input id="children" type="number" min="0" value="0">
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <label>Check-in</label>
+                        <input id="checkin" type="date">
+                    </div>
+                    <div class="col">
+                        <label>Check-out</label>
+                        <input id="checkout" type="date">
+                    </div>
+                </div>
+
+                <button type="button" id="checkBtn" class="btn-main">Check Availability</button>
+                <button type="button" id="bookBtn" class="btn-main mt-2">Book Now</button>
+                <div id="bookingResult"></div>
+
+                <div class="cancel-box">
+                    <button type="button" id="toggleCancel" class="cancel-toggle">Cancel a Booking</button>
+                    <div id="cancelArea" class="cancel-area">
+                        <input id="cancelPhone" type="text" placeholder="Phone used for booking"/>
+                        <label>Check-in</label>
+                        <input id="cancelCheckin" type="date"/>
+                        <button id="cancelBtn" type="button" class="btn-cancel">Submit Cancel</button>
+                        <div id="cancelMessage"></div>
+                    </div>
+                </div>
+
+            </form>
         </div>
-      </form>
     </div>
 
+    <!-- RIGHT SIDE (IMAGE) -->
     <div class="booking-image" data-aos="fade-left">
-      <img src="images/booking.jpg" alt="Room Image">
+        <img src="images/booking.png" alt="Room Image">
     </div>
-  </div>
+
+</div>
+
 
   <!-- intl-tel-input JS -->
 <script src="js/book.js"></script>
@@ -181,6 +196,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize
   updatePrice();
+  const toggleCancelBtn = document.getElementById("toggleCancel");
+  const cancelArea = document.getElementById("cancelArea");
+
+  // make sure it starts hidden
+  cancelArea.style.display = "none";
+
+  toggleCancelBtn.addEventListener("click", () => {
+    const isVisible = cancelArea.style.display === "block";
+
+    cancelArea.style.display = isVisible ? "none" : "block";
+    toggleCancelBtn.textContent = isVisible
+      ? "Cancel a Booking"
+      : "Hide Cancel Form";
+  });
 
   // ---------------- FIREBASE ----------------
   
@@ -382,35 +411,6 @@ const roomCategoryEl = document.getElementById("roomCategory");
 
 AOS.init({ once: true, duration: 1100 });
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
-    const removeItiClass = () => {
-        if (document.body.classList.contains("iti-mobile")) {
-            document.body.classList.remove("iti-mobile");
-            return true;   // class was removed
-        }
-        return false;      // class not present
-    };
-
-    // Remove once on load
-    removeItiClass();
-
-    // Observe only once — then STOP
-    const observer = new MutationObserver(() => {
-        const removed = removeItiClass();
-        if (removed) {
-            observer.disconnect(); // ⭐ STOP observing — prevents infinite loop
-        }
-    });
-
-    observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ["class"]
-    });
-});
-</script>
-
 
 </body>
 </html>

@@ -89,9 +89,9 @@ body {
 }
 
 .carousel-item img {
-  width: 100%;
-  height: 500px;
-  object-fit: cover;
+ width: 100%;
+    height: 550px;   /* your desktop height */
+    object-fit: cover; 
 }
 
 .carousel-overlay {
@@ -174,8 +174,8 @@ body {
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  width: 55px !important;
-  height: 55px !important;
+  width: 55px ;
+  height: 55px;
   border-radius: 50%;
   background: #ff7f00 center/60% no-repeat !important;
   border: 3px solid #ff7f00;
@@ -423,49 +423,95 @@ body {
     line-height: 1.5;
 }
 @media (max-width: 991px) {
-    .navbar-nav .nav-link {
-        color: white;  /* when opened */
-    }
-    .navbar-nav {
-        background: #000;
-        padding: 20px;
-    }
-    .navbar-brand h1 {
-        font-size: 1.2rem;   /* reduce title size */
-    }
+  .navbar-nav .nav-link {
+    color: white;
+  }
+  .navbar-nav {
+    background: #000;
+    padding: 20px;
+  }
+  .navbar-brand h1 {
+    font-size: 1.2rem;
+  }
+  .logo {
+    height: 28px;
+  }
+  .navbar {
+    padding: 8px 15px;
+  }
 
-    .logo {
-        height: 28px;        /* smaller logo */
-    }
-
-    .navbar {
-        padding: 8px 15px;
-    }
-
-    
- 
+  /* OPTIONAL: you can actually remove this if you like Bootstrap’s default */
   .navbar-toggler {
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
   }
-}
-/* Disable intl-tel-input mobile fullscreen mode completely */
-body.iti-mobile {
-    position: static !important;
-    overflow: visible !important;
-    padding-top: 0 !important;
-    margin: 0 !important;
-    width: 100% !important;
-    height: auto !important;
+  
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 25px;   /* smaller icon */
+        height: 25px;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 20px;  /* reduce touch area */
+    }
+    /* Adjust slider height */
+    .carousel-item img {
+        height: 280px;
+        object-fit: cover;
+    }
+
+    /* Move caption higher */
+    .carousel-caption {
+        bottom: 20%;
+    }
+
+    /* Push indicators BELOW the slider */
+    .carousel-indicators {
+        bottom: -18px !important;    /* SAFE OFFSET */
+    }
+
+    /* Add empty space under the slider for indicators */
+    .carousel {
+        margin-bottom: 30px;
+    }
+   /* Make wrapper stack vertically */
+    .nearby-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+        padding-left:6px;
+    }
+
+    /* Control title box width */
+    .nearby-title-box {
+        width: auto;
+        text-align: center;
+    }
+
+    /* Resize the title */
+    .nearby-title {
+        font-size: 28px;          /* Perfect size */
+        line-height: 32px;
+        font-weight: 700;
+        margin: 0 auto 10px;
+        display: inline-block;     /* prevents stretching */
+        width: auto;               /* prevents full width */
+    }
+
+    /* Fix line break spacing */
+    .nearby-title br {
+        display: none;             /* Remove <br> for mobile */
+    }
+
+    /* Optional: add spacing above slider */
+    .attract-slider {
+        margin-top: 5px;
+    }
+    
 }
 
-/* Prevent the mobile dropdown from becoming fullscreen */
-body.iti-mobile .iti--container {
-    position: absolute !important;
-    top: 60px !important;
-    left: 0 !important;
-    width: 300px !important;
-    z-index: 2000 !important;
-}

@@ -1,19 +1,61 @@
 
-/* Layout */
+/* BACKGROUND */
+body {
+    background: #f7f7fc;
+}
+
+/* MAIN TWO-COLUMN LAYOUT */
 .booking-container {
-  max-width: 1100px;
-  margin: 20px auto;
-  display: flex;
-  gap: 28px;
-  padding: 0 15px;
+    display: flex;
+    min-height: 92vh;
+    width: 100%;
+    box-sizing: border-box;
 }
+
+/* LEFT SIDE = FORM AREA */
 .booking-card {
-  background: #fff;
-  padding: 24px;
-  border-radius: 14px;
-  flex: 1;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+   flex: 1.2 !important;
+    display: flex;
+    align-items: flex-start;  
+    justify-content: center;
+    background: #fff;
+    padding: 20px 20px;   /* ↓ REDUCED from 36px 24px */  
 }
+
+/* Inner form styled like Contact form */
+.booking-box {
+   display: flex;
+    flex-direction: column;
+    min-width: 320px;
+    max-width: 420px;
+    width: 100%;
+    background: #fffffff5;
+    border-radius: 18px;
+    padding: 18px 20px;   /* ↓ REDUCED from 28px 20px */
+    box-shadow: 0 0 14px #eee;
+    gap: 18px;
+}
+
+/* RIGHT SIDE = IMAGE FULL HEIGHT */
+.booking-image {
+     flex: 1.8 !important; 
+    min-width: 0;
+    background: #fff;
+    display: flex;
+    align-items: flex-start;      /* align top */
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.booking-image img {
+     width: 100%;
+    height: calc(100vh - 20px);   /* aligned height */
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 18px;
+}
+
+
 .booking-card h2 {
   font-weight: 800;
   color: #ff7f00;
@@ -33,6 +75,13 @@ form select {
   border: 1px solid #ddd;
   background: #fafafa;
 }
+form label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 6px;
+    }
 
 /* Buttons */
 .btn-main {
@@ -84,20 +133,7 @@ form select {
   color:red;
 }
 
-/* Image */
-.booking-image {
-  flex: 1;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #e9eef6;
-}
-.booking-image img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  max-height: 520px;
-  border-radius: 12px;
-}
+
 .iti{
   display: block;
   margin-bottom: 14px;
@@ -105,13 +141,71 @@ form select {
 /* Mobile */
 @media (max-width: 991px) {
   
-  .booking-container {
-    flex-direction: column;
-  }
-  .booking-image img {
-    min-height: 200px;
-  }
-  
+   .booking-container {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .booking-card {
+        order: 1;                    /* Form FIRST */
+        padding: 20px;
+    }
+
+    .booking-image {
+        order: 2;                    /* Image BELOW */
+        height: 260px;
+    }
+
+    .booking-image img {
+       height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    }
+}
+/* ============================================
+   FIX FOR TAB-SWITCH WIDTH BUG (intl-tel-input)
+   ============================================ */
+
+/* Prevent page from expanding horizontally when overlay appears */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
 }
 
+/* When tab is re-focused intl-tel-input adds .iti-mobile to body
+   → That creates a 100vw+ overlay that breaks layout */
+body.iti-mobile {
+    position: relative !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    padding-top: 0 !important;         /* avoid pushing navbar down */
+}
+
+/* Prevent overlay from breaking layout */
+body.iti-mobile .iti--container {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    z-index: 10 !important;            /* keep under navbar */
+}
+
+/* Ensure navbar always stays fixed and aligned */
+.navbar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    z-index: 9999 !important;
+}
+
+.navbar-toggler {
+    position: absolute !important;
+    right: 15px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10000 !important;
+}
 
