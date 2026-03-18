@@ -1,416 +1,660 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Vagr Residency</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAGR Residency | Book Your Stay</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- AOS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  
-  <!-- intl-tel-input CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css"/>
-  
-  <!-- External CSS -->
-    <link rel="stylesheet" href="css/style.css"/>
-    
-    <link rel="stylesheet" href="css/book.css"/>
-    
-
-  
-  
-   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-   
-</head>
-<body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="images/vagr_logo.png" alt="Vagr Residency Logo" class="logo me-2">
-      <h1 class="mb-0">Vagr Residency</h1>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html#aboutus">About us</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html#services">Services</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link book active" href="book.html">Booking</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-  <!-- BOOKING FORM -->
-  <div class="booking-container">
-
-    <!-- LEFT SIDE (FORM) -->
-    <div class="booking-card" data-aos="fade-right">
-        <div class="booking-box">
-            <h2>Book Your Stay</h2>
-            <form id="bookingForm">
-                
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input id="name" type="text" placeholder="Your full name">
-                </div>
-
-                <div class="form-group">
-                    <label>Phone:</label>
-                    <input id="phone" name="phone" type="tel" placeholder="Enter phone number" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Rooms</label>
-                    <select id="rooms">
-                        <option value="1">1 Room</option>
-                        <option value="2">2 Rooms</option>
-                        <option value="3">3 Rooms</option>
-                        <option value="4">4 Rooms</option>
-                        <option value="5">5 Rooms</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Room Category</label>
-                    <select id="roomCategory">
-                        <option value="large">Large(Double-Cot)</option>
-                        <option value="small">Small(Single-Cot)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>AC / Non-AC</label>
-                    <select id="roomType">
-                        <option value="ac">AC Room</option>
-                        <option value="nonac">Non-AC Room</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Total Price</label>
-                    <input id="totalPrice" type="text" disabled>
-                </div>
-
-                <div class="row">
-                    <div class="col">
-                        <label>Adults</label>
-                        <input id="adults" type="number" min="1" value="1">
-                    </div>
-                    <div class="col">
-                        <label>Children</label>
-                        <input id="children" type="number" min="0" value="0">
-                    </div>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col">
-                        <label>Check-in</label>
-                        <input id="checkin" type="date">
-                    </div>
-                    <div class="col">
-                        <label>Check-out</label>
-                        <input id="checkout" type="date">
-                    </div>
-                </div>
-
-                <button type="button" id="checkBtn" class="btn-main">Check Availability</button>
-                <button type="button" id="bookBtn" class="btn-main mt-2">Book Now</button>
-                <div id="bookingResult"></div>
-
-                <div class="cancel-box">
-                    <button type="button" id="toggleCancel" class="cancel-toggle">Cancel a Booking</button>
-                    <div id="cancelArea" class="cancel-area">
-                        <input id="cancelPhone" type="text" placeholder="Phone used for booking"/>
-                        <label>Check-in</label>
-                        <input id="cancelCheckin" type="date"/>
-                        <button id="cancelBtn" type="button" class="btn-cancel">Submit Cancel</button>
-                        <div id="cancelMessage"></div>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-    </div>
-
-    <!-- RIGHT SIDE (IMAGE) -->
-    <div class="booking-image" data-aos="fade-left">
-        <img src="images/booking.png" alt="Room Image">
-    </div>
-
-</div>
-
-
-  <!-- intl-tel-input JS -->
-<script src="js/book.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-  import {
-    getFirestore, collection, addDoc, getDocs, query, where, deleteDoc, doc,
-    orderBy, limit, runTransaction
-  } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
-document.addEventListener("DOMContentLoaded", () => {
-  // ---------------- PRICE CHART ----------------
-  const priceChart = {
-    large:   { ac: 2300, nonac: 2000 },
-    small:   { ac: 1800, nonac: 1500 }
-  };
-
-  const roomsEl = document.querySelector("#rooms");
-  const categoryEl = document.querySelector("#roomCategory");
-  const typeEl = document.querySelector("#roomType");
-  const totalPriceEl = document.querySelector("#totalPrice");
-
-  function updatePrice() {
-    const rooms = parseInt(roomsEl.value) || 1;
-    const category = categoryEl.value;
-    const type = typeEl.value;
-
-    const basePrice = priceChart[category][type];
-    const total = rooms * basePrice;
-
-    totalPriceEl.value = "₹" + total;
-  }
-
-  // Listeners
-  [roomsEl, categoryEl, typeEl].forEach(el => el.addEventListener("change", updatePrice));
-
-  // Initialize
-  updatePrice();
-  const toggleCancelBtn = document.getElementById("toggleCancel");
-  const cancelArea = document.getElementById("cancelArea");
-
-  // make sure it starts hidden
-  cancelArea.style.display = "none";
-
-  toggleCancelBtn.addEventListener("click", () => {
-    const isVisible = cancelArea.style.display === "block";
-
-    cancelArea.style.display = isVisible ? "none" : "block";
-    toggleCancelBtn.textContent = isVisible
-      ? "Cancel a Booking"
-      : "Hide Cancel Form";
-  });
-
-  // ---------------- FIREBASE ----------------
-  
-  const firebaseConfig = {
-    apiKey: "AIzaSyAHGBdgyg21jfj_2uHHuPIIo2GE1oPf1DU",
-    authDomain: "vagr-residency.firebaseapp.com",
-    projectId: "vagr-residency",
-    storageBucket: "vagr-residency.firebasestorage.app",
-    messagingSenderId: "906241851144",
-    appId: "1:906241851144:web:1322d674bd92f62aab36bd"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // ---------------- BOOKING ID GENERATOR ----------------
-  async function generateBookingId() {
-    const bookingsRef = collection(db, "booking");
-
-    const newNumber = await runTransaction(db, async (transaction) => {
-      const q = query(bookingsRef, orderBy("number", "desc"), limit(1));
-      const snap = await getDocs(q);
-      const lastNumber = snap.empty ? 0 : snap.docs[0].data().number || 0;
-      return lastNumber + 1;
-    });
-
-    const padded = String(newNumber).padStart(4, "0");
-    const year = new Date().getFullYear();
-    return { bookingId: `VAGR-${year}-${padded}`, number: newNumber };
-  }
-
-  // ---------------- PHONE INPUT ----------------
-  const phoneInput = document.querySelector("#phone");
-  const cancelPhoneInput = document.querySelector("#cancelPhone");
-
-  const iti = window.intlTelInput(phoneInput, {
-    initialCountry: "in",
-    separateDialCode: true,
-    preferredCountries: ["in","us","gb"],
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
-  });
-
-  const itiCancel = window.intlTelInput(cancelPhoneInput, {
-    initialCountry: "in",
-    separateDialCode: true,
-    preferredCountries: ["in","us","gb"],
-    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
-  });
-
-  // ---------------- BOOK NOW ----------------
-  document.querySelector("#bookBtn").addEventListener("click", async () => {
-    const name = document.querySelector("#name").value.trim();
-    const rooms = parseInt(roomsEl.value) || 1;
-    const adults = parseInt(document.querySelector("#adults").value) || 1;
-    const children = parseInt(document.querySelector("#children").value) || 0;
-    const checkin = document.querySelector("#checkin").value;
-    const checkout = document.querySelector("#checkout").value;
-    const roomCategory = categoryEl.value;
-    const roomType = typeEl.value;
-
-    // Format phone
-    const dial = iti.getSelectedCountryData().dialCode;
-    const national = phoneInput.value.replace(/\D/g, "");
-    const phone = `+${dial} ${national}`;
-
-    if (!name || !phone || !checkin || !checkout) {
-      document.querySelector("#bookingResult").innerHTML =
-        `<span style="color:red">Please fill all required fields.</span>`;
-      return;
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    // --- SIMPLE AVAILABILITY CHECK FOR BOTH ROOM TYPES & DISABLE OPTIONS --- //
-const totalLarge = 5;
-const totalSmall = 6;
-
-// Fetch bookings for these dates
-const q = query(
-  collection(db, "booking"),
-  where("checkin", "<", checkout),
-  where("checkout", ">", checkin)
-);
-const snap = await getDocs(q);
-
-// Count booked rooms
-let bookedLarge = 0;
-let bookedSmall = 0;
-
-snap.forEach(d => {
-  const data = d.data();
-  if (data.roomCategory === "large") bookedLarge += Number(data.rooms || 0);
-  if (data.roomCategory === "small") bookedSmall += Number(data.rooms || 0);
-});
-
-// Calculate availability
-const availableLarge = totalLarge - bookedLarge;
-const availableSmall = totalSmall - bookedSmall;
-
-// Build message
-let msg = "";
-
-if (availableLarge > 0) {
-  msg += `Large Rooms Available: <b>${availableLarge}</b><br>`;
-} else {
-  msg += `<span style="color:red">Large Rooms Fully Booked</span><br>`;
-}
-
-if (availableSmall > 0) {
-  msg += `Small Rooms Available: <b>${availableSmall}</b>`;
-} else {
-  msg += `<span style="color:red">Small Rooms Fully Booked</span>`;
-}
-
-// Show availability
-document.querySelector("#bookingResult").innerHTML = `<div>${msg}</div>`;
-
-// ---- DISABLE ROOM OPTIONS BASED ON AVAILABILITY ---- //
-const roomCategoryEl = document.getElementById("roomCategory");
-
-[...roomCategoryEl.options].forEach(opt => {
-  if (opt.value === "large") {
-    opt.disabled = availableLarge <= 0;
-  }
-  if (opt.value === "small") {
-    opt.disabled = availableSmall <= 0;
-  }
-});
-
-    const basePrice = priceChart[roomCategory][roomType];
-    const totalAmount = rooms * basePrice * 100;
-
-    const options = {
-      key: "YOUR_RAZORPAY_KEY_ID",
-      amount: totalAmount,
-      currency: "INR",
-      name: "Vagr Residency",
-      description: "Room Booking",
-      handler: async function (response) {
-        const { bookingId, number } = await generateBookingId();
-        await addDoc(collection(db, "booking"), {
-          bookingId, number, name, phone, rooms, adults, children,
-          checkin, checkout, roomCategory, roomType,
-          pricePerRoom: basePrice,
-          price: totalAmount/100,
-          paymentId: response.razorpay_payment_id,
-          status: "Booked",
-          createdAt: new Date().toISOString()
-        });
-
-        document.querySelector("#bookingResult").innerHTML =
-          `<span style="color:green">Booking Successful! Your Booking ID: <b>${bookingId}</b></span>`;
-
-        document.getElementById("bookingForm").reset();
-        updatePrice();
-      },
-      prefill: { name, contact: phone },
-      theme: { color: "#ff7f00" },
-    };
-
-    const rzp = new Razorpay(options);
-    rzp.open();
-  });
-
-  // ---------------- CANCEL BOOKING ----------------
-  document.querySelector("#cancelBtn").addEventListener("click", async () => {
-    const cCheckin = document.querySelector("#cancelCheckin").value;
-    const dial = itiCancel.getSelectedCountryData().dialCode;
-    const national = cancelPhoneInput.value.replace(/\D/g, "");
-    const formattedPhone = `+${dial} ${national}`;
-
-    if (!formattedPhone || !cCheckin) {
-      document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">Enter phone & check-in date.</span>`;
-      return;
+    :root{
+      --primary:#38bdf8;
+      --primary-dark:#0ea5e9;
+      --primary-light:#e0f7ff;
+      --white:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#d7effa;
+      --bg1:#f0f9ff;
+      --bg2:#dff4ff;
+      --shadow:0 15px 40px rgba(14,165,233,0.12);
+      --shadow-hover:0 25px 50px rgba(14,165,233,0.18);
+      --radius:28px;
     }
 
-    try {
-      const q = query(collection(db, "booking"),
-        where("phone", "==", formattedPhone),
-        where("checkin", "==", cCheckin)
-      );
-      const snap = await getDocs(q);
+    body{
+      font-family:'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(14,165,233,0.15), transparent 28%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
 
-      if (snap.empty) {
-        document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">No booking found for this phone and date.</span>`;
-        return;
+    .bg-shape{
+      position:fixed;
+      border-radius:50%;
+      filter:blur(60px);
+      z-index:0;
+      opacity:.45;
+      pointer-events:none;
+    }
+
+    .shape1{
+      width:220px;
+      height:220px;
+      background:#7dd3fc;
+      top:80px;
+      left:-60px;
+    }
+
+    .shape2{
+      width:280px;
+      height:280px;
+      background:#bae6fd;
+      bottom:30px;
+      right:-80px;
+    }
+
+    .wrapper{
+      position:relative;
+      z-index:1;
+      width:min(1200px, 92%);
+      margin:auto;
+      padding:28px 0 60px;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      background:rgba(255,255,255,0.68);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,0.85);
+      box-shadow:var(--shadow);
+      border-radius:24px;
+      padding:18px 26px;
+      margin-bottom:42px;
+    }
+
+    .logo{
+      font-family:'Cormorant Garamond', serif;
+      font-size:40px;
+      font-weight:700;
+      color:var(--text);
+      line-height:1;
+    }
+
+    .logo span{
+      color:var(--primary-dark);
+    }
+
+    .back-btn{
+      text-decoration:none;
+      color:var(--white);
+      background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      box-shadow:0 12px 24px rgba(14,165,233,0.20);
+      transition:.3s ease;
+    }
+
+    .back-btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .hero{
+      text-align:center;
+      margin-bottom:34px;
+    }
+
+    .hero-tag{
+      display:inline-block;
+      color:var(--primary-dark);
+      background:rgba(255,255,255,0.65);
+      border:1px solid #d9f1fb;
+      padding:9px 16px;
+      border-radius:999px;
+      font-size:12px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-weight:700;
+      margin-bottom:16px;
+    }
+
+    .hero h1{
+      font-family:'Cormorant Garamond', serif;
+      font-size:68px;
+      line-height:1.05;
+      margin-bottom:12px;
+      color:var(--text);
+    }
+
+    .hero p{
+      max-width:760px;
+      margin:auto;
+      color:var(--muted);
+      font-size:17px;
+      line-height:1.8;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:1.2fr 0.9fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .panel{
+      background:rgba(255,255,255,0.70);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,0.82);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .section-title{
+      font-family:'Cormorant Garamond', serif;
+      font-size:48px;
+      color:var(--text);
+      margin-bottom:22px;
+      line-height:1.1;
+    }
+
+    .room-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:22px;
+    }
+
+    .room-card{
+      background:var(--white);
+      border:2px solid #e5f6fe;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 10px 24px rgba(14,165,233,0.08);
+      transition:.35s ease;
+      position:relative;
+    }
+
+    .room-card:hover{
+      transform:translateY(-8px);
+      box-shadow:var(--shadow-hover);
+      border-color:#9bddfb;
+    }
+
+    .room-card.active{
+      border-color:var(--primary-dark);
+      box-shadow:0 0 0 4px rgba(56,189,248,0.14), var(--shadow-hover);
+    }
+
+    .room-image-wrap{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .room-image{
+      width:100%;
+      height:250px;
+      object-fit:cover;
+      display:block;
+      transition:transform .5s ease;
+    }
+
+    .room-card:hover .room-image{
+      transform:scale(1.05);
+    }
+
+    .room-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(15,23,42,0.18), rgba(15,23,42,0.02));
+    }
+
+    .room-body{
+      padding:20px;
+    }
+
+    .room-badge{
+      display:inline-block;
+      background:var(--primary-light);
+      color:var(--primary-dark);
+      border:1px solid #cdefff;
+      padding:7px 12px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .room-title{
+      font-family:'Cormorant Garamond', serif;
+      font-size:34px;
+      margin-bottom:8px;
+      color:var(--text);
+    }
+
+    .room-desc{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      min-height:48px;
+      margin-bottom:16px;
+    }
+
+    .room-bottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .room-price{
+      color:var(--primary-dark);
+      font-size:28px;
+      font-weight:800;
+    }
+
+    .room-price span{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .select-btn{
+      border:none;
+      background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color:var(--white);
+      padding:12px 20px;
+      border-radius:999px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.3s ease;
+      box-shadow:0 10px 20px rgba(14,165,233,0.18);
+    }
+
+    .select-btn:hover{
+      transform:scale(1.04);
+    }
+
+    .booking-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+
+    .selected-pill{
+      background:var(--primary-light);
+      color:var(--primary-dark);
+      border:1px solid #cceefe;
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .form-group{
+      margin-bottom:16px;
+    }
+
+    .form-label{
+      display:block;
+      margin-bottom:8px;
+      color:#334155;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .form-control{
+      width:100%;
+      background:#fbfeff;
+      border:1.5px solid var(--border);
+      border-radius:16px;
+      padding:15px 16px;
+      outline:none;
+      color:var(--text);
+      font-size:15px;
+      transition:.3s ease;
+    }
+
+    .form-control::placeholder{
+      color:#8ba0b3;
+    }
+
+    .form-control:focus{
+      border-color:var(--primary-dark);
+      box-shadow:0 0 0 4px rgba(56,189,248,0.12);
+      background:#fff;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .summary-box{
+      margin-top:20px;
+      background:linear-gradient(180deg, #ffffff, #f3fbff);
+      border:1px solid #daf1fb;
+      border-radius:24px;
+      padding:20px;
+    }
+
+    .summary-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:11px 0;
+      border-bottom:1px solid #e2f4fc;
+      color:#475569;
+      font-size:15px;
+    }
+
+    .summary-row:last-child{
+      border-bottom:none;
+    }
+
+    .summary-row strong{
+      color:var(--text);
+    }
+
+    .total-row{
+      margin-top:14px;
+      padding-top:16px;
+      border-top:1px solid #d9eef9;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .total-row h3{
+      font-size:17px;
+      color:var(--text);
+    }
+
+    .total-price{
+      font-size:36px;
+      font-weight:800;
+      color:var(--primary-dark);
+    }
+
+    .book-btn{
+      width:100%;
+      border:none;
+      margin-top:22px;
+      padding:16px;
+      border-radius:18px;
+      background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color:var(--white);
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 14px 28px rgba(14,165,233,0.18);
+      transition:.3s ease;
+    }
+
+    .book-btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .mini-note{
+      text-align:center;
+      margin-top:12px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    @media (max-width: 1024px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 768px){
+      .hero h1{
+        font-size:46px;
       }
 
-      const deletes = snap.docs.map(d => deleteDoc(doc(db, "booking", d.id)));
-      await Promise.all(deletes);
+      .section-title{
+        font-size:38px;
+      }
 
-      document.querySelector("#cancelMessage").innerHTML = `<span style="color:green">Booking cancelled successfully.</span>`;
-      cancelPhoneInput.value = "";
-      document.querySelector("#cancelCheckin").value = "";
-    } catch(err) {
-      console.error(err);
-      document.querySelector("#cancelMessage").innerHTML = `<span style="color:red">Error cancelling booking.</span>`;
+      .room-grid,
+      .two-col{
+        grid-template-columns:1fr;
+      }
+
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .logo{
+        font-size:32px;
+      }
     }
-  });
-});
+  </style>
+</head>
+<body>
 
-AOS.init({ once: true, duration: 1100 });
-</script>
+  <div class="bg-shape shape1"></div>
+  <div class="bg-shape shape2"></div>
+
+  <div class="wrapper">
+
+    <div class="topbar">
+      <div class="logo">VAGR <span>Residency</span></div>
+      <a href="index.html" class="back-btn">Back to Home</a>
+    </div>
+
+    <div class="hero">
+      <div class="hero-tag">Luxury • Comfort • Premium Stay</div>
+      <h1>Reserve Your Premium Stay</h1>
+      <p>
+        Enjoy a fresh, elegant and premium booking experience with beautifully designed room categories at VAGR Residency.
+      </p>
+    </div>
+
+    <div class="main-grid">
+
+      <div class="panel">
+        <h2 class="section-title">Choose Your Room</h2>
+
+        <div class="room-grid">
+
+          <div class="room-card active" id="smallCard">
+            <div class="room-image-wrap">
+              <img src="images/small.jpg" alt="Small Room" class="room-image">
+              <div class="room-overlay"></div>
+            </div>
+            <div class="room-body">
+              <div class="room-badge">Cozy Choice</div>
+              <h3 class="room-title">Small Room</h3>
+              <p class="room-desc">
+                Perfect for a calm and comfortable stay with stylish interiors and premium essentials.
+              </p>
+              <div class="room-bottom">
+                <div class="room-price">₹1800 <span>/ night</span></div>
+                <button class="select-btn" onclick="selectRoom('Small Room', 1800, 'smallCard')">Select</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="room-card" id="largeCard">
+            <div class="room-image-wrap">
+              <img src="images/large.jpg" alt="Large Room" class="room-image">
+              <div class="room-overlay"></div>
+            </div>
+            <div class="room-body">
+              <div class="room-badge">Luxury Choice</div>
+              <h3 class="room-title">Large Room</h3>
+              <p class="room-desc">
+                Spacious premium room for families and guests who prefer a more elegant stay experience.
+              </p>
+              <div class="room-bottom">
+                <div class="room-price">₹2200 <span>/ night</span></div>
+                <button class="select-btn" onclick="selectRoom('Large Room', 2200, 'largeCard')">Select</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="booking-head">
+          <h2 class="section-title" style="margin-bottom:0;">Book Your Stay</h2>
+          <div class="selected-pill" id="selectedRoomText">Selected: Small Room</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" id="name" class="form-control" placeholder="Enter your full name">
+        </div>
+
+        <div class="two-col">
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="text" id="phone" class="form-control" placeholder="Enter phone number">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Number of Rooms</label>
+            <input type="number" id="rooms" class="form-control" value="1" min="1">
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="form-group">
+            <label class="form-label">Check-in</label>
+            <input type="date" id="checkin" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Check-out</label>
+            <input type="date" id="checkout" class="form-control">
+          </div>
+        </div>
+
+        <div class="summary-box">
+          <div class="summary-row">
+            <span>Room Type</span>
+            <strong id="summaryRoom">Small Room</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Price Per Night</span>
+            <strong>₹ <span id="summaryNightPrice">1800</span></strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Total Nights</span>
+            <strong id="summaryNights">0</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>No. of Rooms</span>
+            <strong id="summaryRooms">1</strong>
+          </div>
+
+          <div class="total-row">
+            <h3>Total Price</h3>
+            <div class="total-price">₹ <span id="price">0</span></div>
+          </div>
+        </div>
+
+        <button class="book-btn">Confirm Booking</button>
+
+        <p class="mini-note">
+          Elegant ambience • Fresh skyblue premium look • Smooth booking experience
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let selectedRoom = "Small Room";
+    let pricePerNight = 1800;
+
+    const checkin = document.getElementById("checkin");
+    const checkout = document.getElementById("checkout");
+    const rooms = document.getElementById("rooms");
+
+    const price = document.getElementById("price");
+    const summaryRoom = document.getElementById("summaryRoom");
+    const summaryNightPrice = document.getElementById("summaryNightPrice");
+    const summaryNights = document.getElementById("summaryNights");
+    const summaryRooms = document.getElementById("summaryRooms");
+    const selectedRoomText = document.getElementById("selectedRoomText");
+
+    function selectRoom(roomName, roomPrice, cardId){
+      selectedRoom = roomName;
+      pricePerNight = roomPrice;
+
+      summaryRoom.innerText = roomName;
+      summaryNightPrice.innerText = roomPrice;
+      selectedRoomText.innerText = "Selected: " + roomName;
+
+      document.querySelectorAll(".room-card").forEach(card => {
+        card.classList.remove("active");
+      });
+
+      document.getElementById(cardId).classList.add("active");
+      calculatePrice();
+    }
+
+    function calculatePrice(){
+      const roomCount = parseInt(rooms.value) || 1;
+      summaryRooms.innerText = roomCount;
+
+      if(checkin.value && checkout.value){
+        const d1 = new Date(checkin.value);
+        const d2 = new Date(checkout.value);
+
+        const diff = d2 - d1;
+        const nights = diff / (1000 * 60 * 60 * 24);
+
+        if(nights > 0){
+          summaryNights.innerText = nights;
+          price.innerText = nights * pricePerNight * roomCount;
+        } else {
+          summaryNights.innerText = 0;
+          price.innerText = 0;
+        }
+      } else {
+        summaryNights.innerText = 0;
+        price.innerText = 0;
+      }
+    }
+
+    checkin.addEventListener("change", calculatePrice);
+    checkout.addEventListener("change", calculatePrice);
+    rooms.addEventListener("input", calculatePrice);
+  </script>
 
 </body>
 </html>
