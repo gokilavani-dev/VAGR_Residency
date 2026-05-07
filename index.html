@@ -1,292 +1,956 @@
-<!-- index.html -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VAGR Residency</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VAGR Residency — Luxury Stay</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
-<style>
+    <style>
+      :root {
+        --gold: #c9a84c;
+        --gold-light: #e8c97a;
+        --gold-pale: #f5edd8;
+        --deep: #0c1a2e;
+        --deep2: #132338;
+        --sky: #38bdf8;
+        --sky-dark: #0ea5e9;
+        --white: #ffffff;
+        --off: #f8f5f0;
+        --text: #1a2535;
+        --muted: #6b7a8d;
+        --border: rgba(201, 168, 76, 0.2);
+      }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-body{
-font-family:'Inter',sans-serif;
-background:#f2fbff;
-color:#0f172a;
-}
+      html {
+        scroll-behavior: smooth;
+      }
 
-/* NAVBAR */
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--off);
+        color: var(--text);
+        overflow-x: hidden;
+      }
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 60px;
-background:white;
-box-shadow:0 10px 25px rgba(0,0,0,0.05);
-position:sticky;
-top:0;
-z-index:10;
-}
+      /* ═══════════════════════════
+   NAVBAR
+═══════════════════════════ */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 60px;
+        transition: all 0.4s ease;
+      }
 
-.logo{
-font-family:'Cormorant Garamond',serif;
-font-size:34px;
-font-weight:700;
-}
+      .navbar.scrolled {
+        background: rgba(12, 26, 46, 0.96);
+        backdrop-filter: blur(16px);
+        padding: 14px 60px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      }
 
-.logo span{
-color:#0ea5e9;
-}
+      .logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 30px;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: 1px;
+        text-decoration: none;
+      }
+      .logo span {
+        color: var(--gold);
+      }
 
-.nav-links a{
-margin-left:25px;
-text-decoration:none;
-font-weight:600;
-color:#334155;
-}
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+      }
+      .nav-links a {
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.82);
+        transition: color 0.25s;
+      }
+      .nav-links a:hover {
+        color: var(--gold-light);
+      }
 
-.book-btn{
-background:linear-gradient(135deg,#38bdf8,#0ea5e9);
-color:white;
-padding:10px 18px;
-border-radius:30px;
-}
+      .nav-book {
+        background: transparent !important;
+        border: 1px solid var(--gold) !important;
+        color: var(--gold) !important;
+        padding: 10px 22px;
+        border-radius: 2px;
+        letter-spacing: 1.5px;
+        transition: all 0.3s !important;
+      }
+      .nav-book:hover {
+        background: var(--gold) !important;
+        color: var(--deep) !important;
+      }
 
-/* HERO */
+      /* Hamburger */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        padding: 4px;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: white;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
 
-.hero{
-height:90vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:url("images/hero.jpg") center/cover no-repeat;
-position:relative;
-text-align:center;
-}
+      /* Mobile Drawer */
+      .mobile-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 300;
+        backdrop-filter: blur(4px);
+      }
+      .mobile-overlay.open {
+        display: block;
+      }
 
-.hero-overlay{
-position:absolute;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.45);
-}
+      .mobile-drawer {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 78%;
+        max-width: 320px;
+        height: 100%;
+        background: var(--deep);
+        padding: 40px 28px;
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .mobile-overlay.open .mobile-drawer {
+        transform: translateX(0);
+      }
 
-.hero-content{
-position:relative;
-color:white;
-max-width:100%;
-}
+      .drawer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+      .drawer-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: white;
+      }
+      .drawer-logo span {
+        color: var(--gold);
+      }
 
-.hero h1{
-font-family:'Cormorant Garamond',serif;
-font-size:70px;
-margin-bottom:20px;
-}
+      .drawer-close {
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 20px;
+        cursor: pointer;
+      }
 
-.hero p{
-font-size:18px;
-margin-bottom:30px;
-}
+      .mobile-drawer nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .mobile-drawer nav a {
+        display: block;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.75);
+        font-size: 14px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .mobile-drawer nav a:hover {
+        color: var(--gold);
+      }
+      .mobile-drawer nav .m-book {
+        margin-top: 24px;
+        text-align: center;
+        background: var(--gold);
+        color: var(--deep) !important;
+        border-radius: 2px;
+        padding: 16px;
+        font-weight: 600;
+        border-bottom: none;
+      }
 
-.hero-btn{
-background:linear-gradient(135deg,#38bdf8,#0ea5e9);
-padding:14px 32px;
-border-radius:40px;
-text-decoration:none;
-color:white;
-font-weight:600;
-}
+      /* ═══════════════════════════
+   HERO
+═══════════════════════════ */
+      .hero {
+        height: 100vh;
+        min-height: 600px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
 
-/* ROOMS */
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background: url("images/hero.jpg") center/cover no-repeat;
+        transform: scale(1.05);
+        animation: heroZoom 12s ease-out forwards;
+      }
 
-.rooms{
-padding:90px 0;
-text-align:center;
-}
+      @keyframes heroZoom {
+        from {
+          transform: scale(1.05);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
 
-.rooms h2{
-font-family:'Cormorant Garamond',serif;
-font-size:48px;
-margin-bottom:50px;
-}
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(12, 26, 46, 0.55) 0%,
+          rgba(12, 26, 46, 0.35) 50%,
+          rgba(12, 26, 46, 0.7) 100%
+        );
+      }
 
-.room-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
-width:85%;
-margin:auto;
-}
+      .hero-content {
+        position: relative;
+        text-align: center;
+        color: white;
+        padding: 0 24px;
+        max-width: 860px;
+        animation: heroFade 1.2s ease forwards;
+      }
 
-.room-card{
-background:white;
-border-radius:20px;
-overflow:hidden;
-box-shadow:0 15px 35px rgba(0,0,0,0.08);
-transition:.3s;
-}
+      @keyframes heroFade {
+        from {
+          opacity: 0;
+          transform: translateY(28px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-.room-card:hover{
-transform:translateY(-10px);
-}
+      .hero-tag {
+        display: inline-block;
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        border: 1px solid rgba(201, 168, 76, 0.45);
+        padding: 8px 20px;
+        border-radius: 1px;
+        margin-bottom: 28px;
+        backdrop-filter: blur(6px);
+        background: rgba(201, 168, 76, 0.08);
+      }
 
-.room-card img{
-width:100%;
-height:220px;
-object-fit:cover;
-}
+      .hero h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 82px;
+        line-height: 1;
+        font-weight: 600;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+      }
 
-.room-body{
-padding:25px;
-}
+      .hero h1 em {
+        font-style: italic;
+        color: var(--gold-light);
+      }
 
-.room-body h3{
-font-family:'Cormorant Garamond',serif;
-font-size:28px;
-margin-bottom:10px;
-}
+      .hero p {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 40px;
+        font-weight: 300;
+        letter-spacing: 0.3px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
 
-.price{
-color:#0ea5e9;
-font-weight:700;
-margin-top:10px;
-}
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
 
-/* SERVICES */
+      .btn-primary {
+        background: var(--gold);
+        color: var(--deep);
+        padding: 16px 36px;
+        border-radius: 2px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+      }
+      .btn-primary:hover {
+        background: var(--gold-light);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(201, 168, 76, 0.35);
+      }
 
-.services{
-padding:90px 0;
-background:#eaf8ff;
-text-align:center;
-}
+      .btn-ghost {
+        background: transparent;
+        color: white;
+        padding: 16px 36px;
+        border-radius: 2px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        transition: all 0.3s;
+      }
+      .btn-ghost:hover {
+        border-color: white;
+        background: rgba(255, 255, 255, 0.08);
+      }
 
-.service-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:30px;
-width:85%;
-margin:auto;
-}
+      /* scroll indicator */
+      .scroll-hint {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        animation: bounce 2.5s ease infinite;
+      }
+      .scroll-hint i {
+        font-size: 14px;
+      }
 
-.service-card{
-background:white;
-padding:35px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.06);
-}
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          transform: translateX(-50%) translateY(8px);
+        }
+      }
 
-.icon{
-font-size:34px;
-margin-bottom:10px;
-color:#0ea5e9;
-}
+      /* ═══════════════════════════
+   SECTION HEADER
+═══════════════════════════ */
+      .sec-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+      .sec-label {
+        display: inline-block;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 14px;
+        font-weight: 500;
+      }
+      .sec-header h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 54px;
+        font-weight: 600;
+        color: var(--deep);
+        line-height: 1.1;
+      }
+      .sec-divider {
+        width: 50px;
+        height: 1px;
+        background: var(--gold);
+        margin: 18px auto 0;
+      }
 
-footer{
-padding:40px;
-background:#0f172a;
-color:white;
-text-align:center;
-}
+      /* ═══════════════════════════
+   ROOMS
+═══════════════════════════ */
+      .rooms {
+        padding: 100px 0;
+        background: var(--off);
+      }
 
-</style>
-</head>
+      .room-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+        width: 88%;
+        margin: auto;
+      }
 
-<body>
+      .room-card {
+        background: white;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 8px 40px rgba(12, 26, 46, 0.08);
+        transition: all 0.4s ease;
+        position: relative;
+      }
+      .room-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 24px 60px rgba(12, 26, 46, 0.14);
+      }
 
-<div class="navbar">
-<div class="logo">VAGR <span>Residency</span></div>
+      .room-img-wrap {
+        position: relative;
+        overflow: hidden;
+      }
+      .room-card img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+      }
+      .room-card:hover img {
+        transform: scale(1.06);
+      }
 
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="contact.html">Contact</a>
-<a href="book.html" class="book-btn">Book Now</a>
-</div>
-</div>
+      .room-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(12, 26, 46, 0.5),
+          transparent 50%
+        );
+      }
 
-<section class="hero">
+      .room-badge {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        background: var(--gold);
+        color: var(--deep);
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 1px;
+      }
 
-<div class="hero-overlay"></div>
+      .room-body {
+        padding: 28px 30px 30px;
+      }
 
-<div class="hero-content">
-<h1>Luxury Stay in Nature</h1>
-<img src="images/hero.jpg">
-<p>Experience comfort and serenity at VAGR Residency</p>
-<a href="book.html" class="hero-btn">Book Your Stay</a>
-</div>
+      .room-body h3 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 32px;
+        font-weight: 600;
+        color: var(--deep);
+        margin-bottom: 10px;
+      }
 
-</section>
+      .room-body p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
 
-<section class="rooms">
+      .room-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 18px;
+        border-top: 1px solid rgba(201, 168, 76, 0.2);
+      }
 
-<h2>Our Rooms</h2>
+      .room-price {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--deep);
+      }
+      .room-price span {
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--muted);
+      }
 
-<div class="room-grid">
+      .room-btn {
+        background: var(--deep);
+        color: white;
+        text-decoration: none;
+        padding: 10px 22px;
+        border-radius: 2px;
+        font-size: 12px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: all 0.3s;
+      }
+      .room-btn:hover {
+        background: var(--gold);
+        color: var(--deep);
+      }
 
-<div class="room-card">
-<img src="images/small.jpg">
-<div class="room-body">
-<h3>Small Room</h3>
-<p>Perfect for a cozy comfortable stay.</p>
-<div class="price">₹1800 / night</div>
-</div>
-</div>
+      /* ═══════════════════════════
+   AMENITIES STRIP
+═══════════════════════════ */
+      .amenities {
+        background: var(--deep);
+        padding: 60px 0;
+      }
 
-<div class="room-card">
-<img src="images/large.jpg">
-<div class="room-body">
-<h3>Large Room</h3>
-<p>Spacious luxury room for families.</p>
-<div class="price">₹2200 / night</div>
-</div>
-</div>
+      .amenity-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        width: 88%;
+        margin: auto;
+      }
 
-</div>
+      .amenity-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 36px 20px;
+        border-right: 1px solid rgba(255, 255, 255, 0.07);
+        text-align: center;
+        transition: background 0.3s;
+      }
+      .amenity-item:last-child {
+        border-right: none;
+      }
+      .amenity-item:hover {
+        background: rgba(201, 168, 76, 0.06);
+      }
 
-</section>
+      .amenity-icon {
+        width: 52px;
+        height: 52px;
+        border: 1px solid rgba(201, 168, 76, 0.35);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: var(--gold);
+        transition: all 0.3s;
+      }
+      .amenity-item:hover .amenity-icon {
+        background: var(--gold);
+        color: var(--deep);
+        border-color: var(--gold);
+      }
 
-<section class="services">
+      .amenity-item h4 {
+        color: white;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+      .amenity-item p {
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 12px;
+      }
 
-<h2>Our Services</h2>
+      /* ═══════════════════════════
+   QUOTE / TAGLINE
+═══════════════════════════ */
+      .tagline-section {
+        padding: 100px 0;
+        background: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
 
-<div class="service-grid">
+      .tagline-section::before {
+        content: '"';
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Cormorant Garamond", serif;
+        font-size: 300px;
+        color: rgba(201, 168, 76, 0.06);
+        line-height: 1;
+        pointer-events: none;
+      }
 
-<div class="service-card">
-<div class="icon">📶</div>
-<h4>Free WiFi</h4>
-</div>
+      .tagline-section blockquote {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 44px;
+        font-style: italic;
+        font-weight: 400;
+        color: var(--deep);
+        max-width: 800px;
+        margin: 0 auto 24px;
+        line-height: 1.3;
+        padding: 0 24px;
+      }
 
-<div class="service-card">
-<div class="icon">🏊</div>
-<h4>Swimming Pool</h4>
-</div>
+      .tagline-section cite {
+        font-size: 12px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-style: normal;
+        font-weight: 500;
+      }
 
-<div class="service-card">
-<div class="icon">🏋️</div>
-<h4>Gym</h4>
-</div>
+      /* ═══════════════════════════
+   FOOTER
+═══════════════════════════ */
+      footer {
+        background: var(--deep);
+        color: rgba(255, 255, 255, 0.5);
+        padding: 50px 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
 
-<div class="service-card">
-<div class="icon">🅿️</div>
-<h4>Parking</h4>
-</div>
+      .footer-logo {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: white;
+      }
+      .footer-logo span {
+        color: var(--gold);
+      }
 
-</div>
+      .footer-links {
+        display: flex;
+        gap: 28px;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .footer-links a:hover {
+        color: var(--gold);
+      }
 
-</section>
+      footer p {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+      }
 
-<footer>
-© 2026 VAGR Residency
-</footer>
+      /* ═══════════════════════════
+   MEDIA QUERIES
+═══════════════════════════ */
+      @media (max-width: 1024px) {
+        .amenity-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .amenity-item {
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .amenity-item:nth-child(2n) {
+          border-right: none;
+        }
+      }
 
-</body>
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 16px 20px;
+        }
+        .nav-links {
+          display: none;
+        }
+        .hamburger {
+          display: flex;
+        }
+
+        .hero h1 {
+          font-size: 48px;
+        }
+        .hero p {
+          font-size: 14px;
+        }
+
+        .room-grid {
+          grid-template-columns: 1fr;
+          width: 92%;
+        }
+
+        .sec-header h2 {
+          font-size: 38px;
+        }
+
+        .amenity-grid {
+          grid-template-columns: repeat(2, 1fr);
+          width: 92%;
+        }
+
+        .tagline-section blockquote {
+          font-size: 28px;
+        }
+
+        footer {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          padding: 40px 24px;
+        }
+        .footer-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 38px;
+        }
+        .hero-actions {
+          flex-direction: column;
+          align-items: center;
+        }
+        .btn-primary,
+        .btn-ghost {
+          width: 100%;
+          max-width: 280px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ── NAVBAR ── -->
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="logo">VAGR <span>Residency</span></a>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="book.html" class="nav-book">Book Now</a>
+      </div>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- ── MOBILE MENU ── -->
+    <div class="mobile-overlay" id="mobileOverlay">
+      <div class="mobile-drawer">
+        <div class="drawer-top">
+          <div class="drawer-logo">VAGR <span>Residency</span></div>
+          <button class="drawer-close" id="drawerClose">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="contact.html">Contact</a>
+          <a href="book.html" class="m-book">Book Now</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-tag">Luxury · Comfort · Premium Stay</div>
+        <h1>Where Comfort<br />Meets <em>Elegance</em></h1>
+        <p>
+          Experience curated luxury at VAGR Residency — your private sanctuary
+          in nature.
+        </p>
+        <div class="hero-actions">
+          <a href="book.html" class="btn-primary">Reserve Your Stay</a>
+          <a href="contact.html" class="btn-ghost">Get in Touch</a>
+        </div>
+      </div>
+      <div class="scroll-hint">
+        <i class="fa fa-chevron-down"></i>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ── ROOMS ── -->
+    <section class="rooms" id="rooms">
+      <div class="sec-header">
+        <div class="sec-label">Accommodations</div>
+        <h2>Our Rooms</h2>
+        <div class="sec-divider"></div>
+      </div>
+
+      <div class="room-grid">
+        <div class="room-card">
+          <div class="room-img-wrap">
+            <img src="images/small.jpg" alt="Small Room" />
+            <div class="room-img-overlay"></div>
+            <div class="room-badge">Cozy</div>
+          </div>
+          <div class="room-body">
+            <h3>Small Room</h3>
+            <p>
+              Intimate and elegantly appointed — perfect for solo travellers or
+              couples seeking a peaceful, comfortable retreat.
+            </p>
+            <div class="room-footer">
+              <div class="room-price">₹1,800 <span>/ night</span></div>
+              <a href="book.html" class="room-btn">Book Room</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="room-card">
+          <div class="room-img-wrap">
+            <img src="images/large.jpg" alt="Large Room" />
+            <div class="room-img-overlay"></div>
+            <div class="room-badge">Luxury</div>
+          </div>
+          <div class="room-body">
+            <h3>Large Room</h3>
+            <p>
+              Spacious and richly furnished — crafted for families and guests
+              who desire an elevated, premium experience.
+            </p>
+            <div class="room-footer">
+              <div class="room-price">₹2,200 <span>/ night</span></div>
+              <a href="book.html" class="room-btn">Book Room</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── AMENITIES ── -->
+    <section class="amenities">
+      <div class="amenity-grid">
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fa fa-wifi"></i></div>
+          <h4>High-Speed WiFi</h4>
+          <p>Stay connected, always</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fa fa-swimming-pool"></i></div>
+          <h4>Swimming Pool</h4>
+          <p>Open sunrise to sunset</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fa fa-dumbbell"></i></div>
+          <h4>Fitness Centre</h4>
+          <p>Modern equipment</p>
+        </div>
+        <div class="amenity-item">
+          <div class="amenity-icon"><i class="fa fa-car"></i></div>
+          <h4>Secure Parking</h4>
+          <p>Complimentary valet</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TAGLINE ── -->
+    <section class="tagline-section">
+      <blockquote>Every stay at VAGR is a story worth telling.</blockquote>
+      <cite>VAGR Residency — Est. 2024</cite>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+      <div class="footer-logo">VAGR <span>Residency</span></div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="book.html">Book</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <p>© 2026 VAGR Residency. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Navbar scroll effect
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        navbar.classList.toggle("scrolled", window.scrollY > 60);
+      });
+
+      // Mobile menu
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mobileOverlay = document.getElementById("mobileOverlay");
+      const drawerClose = document.getElementById("drawerClose");
+
+      hamburgerBtn.addEventListener("click", () =>
+        mobileOverlay.classList.add("open"),
+      );
+      drawerClose.addEventListener("click", () =>
+        mobileOverlay.classList.remove("open"),
+      );
+      mobileOverlay.addEventListener("click", (e) => {
+        if (e.target === mobileOverlay) mobileOverlay.classList.remove("open");
+      });
+    </script>
+  </body>
 </html>
